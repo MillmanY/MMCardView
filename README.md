@@ -9,6 +9,11 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+## Demo
+
+![demo](https://github.com/MillmanY/MMCardView/blob/master/demo.gif)
+
+
 ## Requirements
 
     iOS 8.0+
