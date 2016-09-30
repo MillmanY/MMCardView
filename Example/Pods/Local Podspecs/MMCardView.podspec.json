@@ -1,9 +1,9 @@
 {
   "name": "MMCardView",
-  "version": "0.1.0",
-  "summary": "A short description of MMCardView.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/MMCardView",
+  "version": "0.1.1",
+  "summary": "Custom CollectionView",
+  "description": "Custom CollectionView like Wallet",
+  "homepage": "https://github.com/MillmanY/MMCardView",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,8 +12,8 @@
     "Millman": "millmanyang@gmail.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/MMCardView.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/MillmanY/MMCardView.git",
+    "tag": "0.1.1"
   },
   "platforms": {
     "ios": "8.0"

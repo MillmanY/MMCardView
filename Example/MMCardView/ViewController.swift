@@ -35,7 +35,6 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
             let value = Int(arc4random_uniform(3))
             arr.append(xibName[value] as AnyObject)
         }
-        
 //        arr.append("CardA" as AnyObject)
 //        arr.append("CardB" as AnyObject)
 //        arr.append("CardC" as AnyObject)

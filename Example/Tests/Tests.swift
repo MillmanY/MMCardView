@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import MMCardView
+//import MMCardView
 
 class Tests: XCTestCase {
     

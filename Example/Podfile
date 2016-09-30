@@ -1,11 +1,5 @@
 use_frameworks!
-
 target 'MMCardView_Example' do
   pod 'MMCardView', :path => '../'
 
-  target 'MMCardView_Tests' do
-    inherit! :search_paths
-
-    
-  end
 end

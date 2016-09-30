@@ -82,7 +82,6 @@ public class CardView: UIView {
         self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: removePaths)
             }) { (finish) in
-                let isReload = (self.filterArr.count == 0)
                 self.filterSet += insertIdx
                 self.filterSet = self.filterSet.enumerated().sorted(by: { (value2, value1) -> Bool in
                     let isSort = (value1.element > value2.element)

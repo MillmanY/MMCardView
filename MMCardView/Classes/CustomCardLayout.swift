@@ -150,7 +150,6 @@ class CustomCardLayout: UICollectionViewLayout {
     fileprivate func setBottom(attribute:CardLayoutAttributes, bottomIdx:inout CGFloat) {
         let index = attribute.indexPath.row
         let currentFrame = CGRect(x: self.collectionView!.frame.origin.x, y: TitleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
-        let count =  CGFloat(self.collectionView!.numberOfItems(inSection: 0))
         let baseHeight = self.collectionView!.contentOffset.y + collectionView!.bounds.height * 0.90
         let bottomH = cellSize.height  * 0.1
         let margin:CGFloat = bottomH/CGFloat(bottomShowCount)
@@ -211,7 +210,7 @@ class CustomCardLayout: UICollectionViewLayout {
         let at = (itemIndexPath.row > attributeList.count-1) ? super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) :attributeList[itemIndexPath.row]
         if self.deletePath.contains(itemIndexPath) {
             let randomLoc = (itemIndexPath.row%2 == 0) ? 1 : -1
-            var x = self.collectionView!.frame.width * CGFloat(randomLoc)
+            let x = self.collectionView!.frame.width * CGFloat(randomLoc)
             
             at?.transform = CGAffineTransform.init(translationX: x, y: 0)
     
@@ -225,7 +224,7 @@ class CustomCardLayout: UICollectionViewLayout {
         let at = (itemIndexPath.row > attributeList.count-1) ? super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) :attributeList[itemIndexPath.row]
         if self.insertPath.contains(itemIndexPath) {
             let randomLoc = (itemIndexPath.row%2 == 0) ? 1 : -1
-            var x = self.collectionView!.frame.width * CGFloat(randomLoc)
+            let x = self.collectionView!.frame.width * CGFloat(randomLoc)
             
             at?.transform = CGAffineTransform.init(translationX: x, y: 0)
             

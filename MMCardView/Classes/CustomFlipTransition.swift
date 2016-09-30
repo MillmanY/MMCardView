@@ -22,16 +22,14 @@ public class CustomFlipTransition: NSObject,UIViewControllerAnimatedTransitionin
     }
     
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let containerView = transitionContext.containerView as? UIView else {
-            return
-        }
+        let containerView = transitionContext.containerView
         let toView = transitionContext.view(forKey: .to)
         let fromView = transitionContext.view(forKey: .from)
         let viewRadius = self.cardView.layer.cornerRadius
         
         if self.transitionMode == .Present {
             originalCardFrame = self.cardView.frame
-            var toViewF = self.cardView.convert(self.cardView.superview!.frame, to: toView!)
+            let toViewF = self.cardView.convert(self.cardView.superview!.frame, to: toView!)
             toView?.frame = self.cardView.bounds
             toView?.layer.cornerRadius = viewRadius
             self.cardView.addSubview(toView!)
@@ -45,9 +43,6 @@ public class CustomFlipTransition: NSObject,UIViewControllerAnimatedTransitionin
                     transitionContext.completeTransition(true)
             })
         } else {
-
-            var toViewF = self.cardView.superview!.convert(self.cardView.superview!.frame, to: fromView!)
-
             self.cardView.isHidden = true
             let content = self.cardView.contentView
             let originalCrolor = content.backgroundColor
