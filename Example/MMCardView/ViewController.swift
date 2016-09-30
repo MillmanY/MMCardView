@@ -22,7 +22,7 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
         card.set(cards: arr)
         
         self.card.showStyle(style: .cover)
-
+        self.card.expandBottomCount(count: 2)
 
         // Do any additional setup after loading the view, typically from a nib.
     }

@@ -135,6 +135,12 @@ public class CardView: UIView {
             NSException(name: NSExceptionName(rawValue: "Cell type error!!"), reason: "Need to inherit CardCell", userInfo: nil).raise()
         }
     }
+    
+    public func expandBottomCount(count:Int) {
+        if let layout = self.collectionView.collectionViewLayout as? CustomCardLayout {
+            layout.bottomShowCount = count
+        }
+    }
 
 }
 

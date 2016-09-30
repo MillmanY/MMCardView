@@ -32,7 +32,6 @@ class CustomCardLayout: UICollectionViewLayout {
     fileprivate var attributeList:[CardLayoutAttributes]!
     fileprivate var bottomShowSet = [Int]()
     fileprivate var _selectIdx = -1
-    var showCount = 0
     var showStyle:SequenceStyle = .normal {
         didSet {
             self.collectionView?.performBatchUpdates({
@@ -203,10 +202,7 @@ class CustomCardLayout: UICollectionViewLayout {
     }
     
     override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-//
-//        if itemIndexPath.row > attributeList.count-1{
-//           return super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath)
-//        }
+
         let at = (itemIndexPath.row > attributeList.count-1) ? super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) :attributeList[itemIndexPath.row]
         if self.deletePath.contains(itemIndexPath) {
             let randomLoc = (itemIndexPath.row%2 == 0) ? 1 : -1
