@@ -7,9 +7,23 @@
 //
 
 import UIKit
+import MMCardView
+class CardCCell: CardCell,CardCellProtocol {
+    @IBOutlet weak var btnClick:UIButton!
+    private var callBack:(()->Void)?
+    public static func cellIdentifier() -> String {
+        return "CardC"
+    }
 
-class CardCCell: UICollectionViewCell {
-
+    func clickCallBack(c:@escaping ()->Void) {
+        self.callBack = c
+    }
+    
+    @IBAction func clickAction() {
+        if let c = self.callBack {
+            c()
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

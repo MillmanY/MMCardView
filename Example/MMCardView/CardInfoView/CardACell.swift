@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import MMCardView
 
-class CardACell: UICollectionViewCell {
+class CardACell: CardCell,CardCellProtocol {
+    @IBOutlet weak var labTitle:UILabel!
+    @IBOutlet weak var txtView:UITextView!
+    
+    public static func cellIdentifier() -> String {
+        return "CardA"
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

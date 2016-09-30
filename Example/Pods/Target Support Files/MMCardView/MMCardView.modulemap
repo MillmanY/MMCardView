@@ -1,0 +1,6 @@
+framework module MMCardView {
+  umbrella header "MMCardView-umbrella.h"
+
+  export *
+  module * { export * }
+}

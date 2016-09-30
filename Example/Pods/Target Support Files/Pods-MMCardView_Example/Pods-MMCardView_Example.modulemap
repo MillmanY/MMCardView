@@ -1,0 +1,6 @@
+framework module Pods_MMCardView_Example {
+  umbrella header "Pods-MMCardView_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
