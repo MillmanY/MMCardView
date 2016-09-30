@@ -11,6 +11,59 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+    iOS 8.0+
+    Xcode 8.0+
+    Swift 3.0+
+## Use
+1.Register your CollectionView Cell and Datasource
+    
+    card.cardDataSource = self
+    card.registerCardCell(c: CardACell.classForCoder(), nib: UINib.init(nibName: "CardACell", bundle: nil))
+2.Set your data use
+
+    card.set(cards: arr)
+    
+3.Create your Cell inherit "CardCell" and implement "CardCellProtocol"
+
+    class CardACell: CardCell,CardCellProtocol {
+       
+       // Set your Cell Identifier
+       public static func cellIdentifier() -> String {
+            return "CardA"
+        }
+    }
+4.Handle Datasource
+    
+    item : What you put in Step 2
+  
+    func cardView(collectionView:UICollectionView,item:AnyObject,indexPath:IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item as! String, for: indexPath )
+        return cell
+    }
+    
+## Style
+
+     public enum SequenceStyle:Int {
+       case normal
+       case cover
+     }
+## Filter
+1.Hide you dont want to show use function
+
+    card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
+         return (obj as! String) == "CardA"
+    })
+2.Show All Data
+
+    card.showAllData()
+## Other
+
+1.BottomCount when Expand
+
+    card.expandBottomCount(count:Int)
+2.Flip ViewController
+
+    card.presentViewController(to: vc)
 ## Installation
 
 MMCardView is available through [CocoaPods](http://cocoapods.org). To install
