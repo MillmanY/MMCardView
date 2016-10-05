@@ -9,17 +9,17 @@
 import UIKit
 
 public protocol CardCollectionViewDataSource:class {
-    func cardView(collectionView:UICollectionView,item:AnyObject,indexPath:IndexPath) -> UICollectionViewCell
+    func cardView(collectionView:UICollectionView,item:AnyObject,indexPath:NSIndexPath) -> UICollectionViewCell
 }
 
 public class CardView: UIView {
     public weak var cardDataSource:CardCollectionViewDataSource?
     
-    fileprivate var isFilterMode = false
+    private var isFilterMode = false
 
-    fileprivate var filterSet = [Int]()
-    fileprivate var filterArr = [AnyObject]()
-    fileprivate var cardArr = [AnyObject]() {
+    private var filterSet = [Int]()
+    private var filterArr = [AnyObject]()
+    private var cardArr = [AnyObject]() {
         didSet {
             self.collectionView.reloadData()
             if cardArr.count > 0 {
@@ -29,24 +29,25 @@ public class CardView: UIView {
             filterArr += cardArr
         }
     }
-    fileprivate var transition = CustomFlipTransition(duration: 0.3)
-    fileprivate lazy var collectionView:UICollectionView = {
+    private var transition = CustomFlipTransition(duration: 0.3)
+    private lazy var collectionView:UICollectionView = {
         let layout = CustomCardLayout()
         let c = UICollectionView.init(frame: self.frame, collectionViewLayout: layout)
         c.translatesAutoresizingMaskIntoConstraints = false
         c.delegate = self
         c.dataSource = self
-        c.backgroundColor = UIColor.clear
+        c.backgroundColor = UIColor.clearColor()
         return c
     }()
     
-    fileprivate func setUp() {
+    private func setUp() {
         self.addSubview(collectionView)
         self.translatesAutoresizingMaskIntoConstraints = false
-        let left = NSLayoutConstraint.init(item: collectionView, attribute: .left, relatedBy: .equal, toItem: collectionView.superview!, attribute: .left, multiplier: 1.0, constant: 0.0)
-        let right = NSLayoutConstraint.init(item: collectionView, attribute: .right, relatedBy: .equal, toItem: collectionView.superview!, attribute: .right, multiplier: 1.0, constant: 0.0)
-        let top = NSLayoutConstraint.init(item: collectionView, attribute: .top, relatedBy: .equal, toItem: collectionView.superview!, attribute: .top, multiplier: 1.0, constant: 0.0)
-        let bottom = NSLayoutConstraint.init(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: collectionView.superview!, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        
+        let left = NSLayoutConstraint.init(item: collectionView, attribute: .Left, relatedBy: .Equal, toItem: collectionView.superview!, attribute: .Left, multiplier: 1.0, constant: 0.0)
+        let right = NSLayoutConstraint.init(item: collectionView, attribute: .Right, relatedBy: .Equal, toItem: collectionView.superview!, attribute: .Right, multiplier: 1.0, constant: 0.0)
+        let top = NSLayoutConstraint.init(item: collectionView, attribute: .Top, relatedBy: .Equal, toItem: collectionView.superview!, attribute: .Top, multiplier: 1.0, constant: 0.0)
+        let bottom = NSLayoutConstraint.init(item: collectionView, attribute: .Bottom, relatedBy: .Equal, toItem: collectionView.superview!, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
         self.addConstraints([left,right,top,bottom])
     }
     
@@ -60,44 +61,45 @@ public class CardView: UIView {
         cardArr += cards
     }
     
-    public func filterAllDataWith(isInclued:@escaping (Int,AnyObject) -> Bool) {
+    public func filterAllDataWith(isInclued:(Int,AnyObject) -> Bool) {
         var removeIdx = [Int]()
         var insertIdx = [Int]()
         
-        for (idx,value) in cardArr.enumerated() {
+        for (idx,value) in cardArr.enumerate() {
             let rc = isInclued(idx,value)
             
             if !rc && filterSet.contains(idx) {
-                let i = filterSet.index(of: idx)!
+                let i = filterSet.indexOf(idx)!
                 removeIdx.append(i)
             } else if rc && !filterSet.contains(idx){
                 insertIdx.append(idx)
             }
         }
         
-        filterArr = filterArr.enumerated().filter { !removeIdx.contains($0.offset)}.map {$0.element}
-        filterSet = filterSet.enumerated().filter { !removeIdx.contains($0.offset)}.map {$0.element}
-
-        let removePaths = removeIdx.map { IndexPath.init(row: $0, section: 0) }
+        filterArr = filterArr.enumerate().filter { !removeIdx.contains($0.index)}.map {$0.element}
+        filterSet = filterSet.enumerate().filter { !removeIdx.contains($0.index)}.map {$0.element}
+        let removePaths = removeIdx.map { NSIndexPath.init(forRow: $0, inSection: 0) }
         self.collectionView.performBatchUpdates({
-                self.collectionView.deleteItems(at: removePaths)
+                self.collectionView.deleteItemsAtIndexPaths(removePaths)
             }) { (finish) in
                 self.filterSet += insertIdx
-                self.filterSet = self.filterSet.enumerated().sorted(by: { (value2, value1) -> Bool in
+                self.filterSet.enumerate().sort({ (value2, value1) -> Bool in
+                    
                     let isSort = (value1.element > value2.element)
                     return isSort
+
                 }).map {$0.element }
-                
-                self.filterArr = self.cardArr.enumerated().filter({ (idx,value) -> Bool in
+                                
+                self.filterArr = self.cardArr.enumerate().filter({ (idx,value) -> Bool in
                     return self.filterSet.contains(idx)
                 }).map({ (idx,value) -> AnyObject in
                     return value
                 })
+                
+                let insertPath = insertIdx.map {NSIndexPath.init(forRow: self.filterSet.indexOf( $0)!, inSection: 0)}
 
-                let insertPath = insertIdx.map {IndexPath.init(row: self.filterSet.index(of: $0)!, section: 0)}
-
-                self.collectionView.performBatchUpdates({ 
-                    self.collectionView.insertItems(at: insertPath)
+                self.collectionView.performBatchUpdates({
+                    self.collectionView.insertItemsAtIndexPaths(insertPath)
                     }, completion: { (finish) in
                 })
         }
@@ -108,31 +110,33 @@ public class CardView: UIView {
     }
     
     public func showStyle(style:SequenceStyle) {
-        DispatchQueue.main.async { 
+    
+        dispatch_async(dispatch_get_main_queue()) { 
             if let custom = self.collectionView.collectionViewLayout as? CustomCardLayout {
                 custom.showStyle = style
-            }            
+            }
         }
     }
     
     public func presentViewController(to vc:UIViewController) {
-        if let custom = collectionView.collectionViewLayout as? CustomCardLayout ,custom.selectIdx == -1{
+        if let custom = collectionView.collectionViewLayout as? CustomCardLayout  where custom.selectIdx == -1{
             print ("You nees Select a cell")
             return
         }
 
         let current = UIViewController.currentViewController()
         vc.transitioningDelegate = self
-        vc.modalPresentationStyle = .custom
-        current.present(vc, animated: true, completion: nil)
+        vc.modalPresentationStyle = .Custom
+        current.presentViewController(vc, animated: true, completion: nil)
     }
 
     public func registerCardCell(c:AnyClass,nib:UINib) {
-        if (c.alloc().isKind(of: CardCell.classForCoder())) {
-            let identifier = c.value(forKey: "cellIdentifier") as! String
-            collectionView.register(nib, forCellWithReuseIdentifier: identifier)
+        if (c.alloc().isKindOfClass(CardCell.classForCoder())) {
+            
+            let identifier = c.valueForKey("cellIdentifier") as! String
+            collectionView.registerNib(nib, forCellWithReuseIdentifier: identifier)
         } else {
-            NSException(name: NSExceptionName(rawValue: "Cell type error!!"), reason: "Need to inherit CardCell", userInfo: nil).raise()
+            NSException(name: NSExceptionName(string: "Cell type error!!") as String, reason: "Need to inherit CardCell", userInfo: nil).raise()
         }
     }
     
@@ -145,7 +149,8 @@ public class CardView: UIView {
 }
 
 extension CardView:UICollectionViewDelegate {
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
             custom.selectIdx = indexPath.row
         }
@@ -162,8 +167,9 @@ extension CardView:UICollectionViewDataSource {
         return filterArr.count
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {        
-        guard let source = cardDataSource?.cardView(collectionView: collectionView,item: filterArr[indexPath.row], indexPath: indexPath) as? CardCell else {
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+
+        guard let source = cardDataSource?.cardView(collectionView, item: filterArr[indexPath.row], indexPath: indexPath) as? CardCell else {
             return UICollectionViewCell()
         }
         source.collectionV = collectionView
@@ -172,23 +178,26 @@ extension CardView:UICollectionViewDataSource {
                 custom.selectIdx = indexPath.row
             }
         }
-        source.isHidden = false
+        source.hidden = false
         return source
     }
 }
 
 extension CardView:UIViewControllerTransitioningDelegate{
 
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+   
         transition.transitionMode = .Present
         if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
-            transition.cardView = self.collectionView.cellForItem(at: IndexPath.init(row: custom.selectIdx, section: 0))
+            transition.cardView = self.collectionView.cellForItemAtIndexPath(NSIndexPath.init(forRow: custom.selectIdx, inSection: 0))
+            
             custom.isFullScreen = true
         }
         return transition
     }
 
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
         transition.transitionMode = .Dismiss
         if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
             custom.isFullScreen = false

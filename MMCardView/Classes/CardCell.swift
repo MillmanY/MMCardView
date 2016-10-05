@@ -12,53 +12,54 @@ public protocol CardCellProtocol {
     static func cellIdentifier() -> String
 }
 
-open class CardCell:UICollectionViewCell{
+public class CardCell:UICollectionViewCell{
     var collectionV:UICollectionView!
     var reloadBlock:(()->Void)?
     var customCardLayout:CardLayoutAttributes?
     var originTouchY:CGFloat = 0.0
     var pangesture:UIPanGestureRecognizer?
     func pan(rec:UIPanGestureRecognizer){
-        let point = rec.location(in: collectionV)
+        let point = rec.locationInView(collectionV)
         let shiftY:CGFloat = (point.y - originTouchY  > 0) ? point.y - originTouchY : 0
         
         switch rec.state {
-            case .began:
+            case .Began:
                 originTouchY = point.y
-            case .changed:
-                self.transform = CGAffineTransform.init(translationX: 0, y: shiftY)
+            case .Changed:
+                self.transform = CGAffineTransformMakeTranslation(0, shiftY)
 
             default:
                 let isNeedReload = (shiftY > self.contentView.frame.height/3) ? true : false
                 let resetY = (isNeedReload) ? self.contentView.bounds.height * 1.2 : 0
             
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.layer.transform = CATransform3DMakeTranslation(0, resetY, 0)
                 
+                UIView.animateWithDuration(0.3, animations: { 
+                    self.layer.transform = CATransform3DMakeTranslation(0, resetY, 0)
+
                     }, completion: { (finish) in
-                        if let reload = self.reloadBlock , isNeedReload ,finish {
+                        if let reload = self.reloadBlock  where isNeedReload && finish {
                             reload()
                         }
+
                 })
         }
     }
     
-    open override func awakeFromNib() {
+     override public func awakeFromNib() {
     
         super.awakeFromNib()
         self.layer.speed = 0.8
 
         if pangesture == nil {
-            pangesture = UIPanGestureRecognizer(target: self,action: #selector(CardCell.pan(rec:)))
+            pangesture = UIPanGestureRecognizer.init(target: self, action: #selector(CardCell.pan(_:)))
             pangesture!.delegate = self
             self.addGestureRecognizer(pangesture!)
         }
         
-        self.setShadow(offset: CGSize(width: 0, height: -2), radius: 8, opacity: 0.5)
+        self.setShadow(CGSize(width: 0, height: -2), radius: 8, opacity: 0.5)
     }
-
-    open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
-        super.apply(layoutAttributes)
+    
+    override public func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
         if let layout = layoutAttributes as? CardLayoutAttributes {
             customCardLayout = layout
             
@@ -68,16 +69,16 @@ open class CardCell:UICollectionViewCell{
 
 extension CardCell:UIGestureRecognizerDelegate {
     
-    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+     override public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
-        if let layout = customCardLayout , layout.isExpand  {
+        if let layout = customCardLayout  where layout.isExpand  {
             return layout.isExpand
         }
         return false
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let layout = customCardLayout , layout.isExpand  {
+        if let layout = customCardLayout  where layout.isExpand  {
             return layout.isExpand
         }
         return false

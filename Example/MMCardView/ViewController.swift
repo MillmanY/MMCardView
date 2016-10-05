@@ -14,14 +14,14 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        card.registerCardCell(c: CardACell.classForCoder(), nib: UINib.init(nibName: "CardACell", bundle: nil))
-        card.registerCardCell(c: CardBCell.classForCoder(), nib: UINib.init(nibName: "CardBCell", bundle: nil))
-        card.registerCardCell(c: CardCCell.classForCoder(), nib: UINib.init(nibName: "CardCCell", bundle: nil))
+        card.registerCardCell( CardACell.classForCoder(), nib: UINib.init(nibName: "CardACell", bundle: nil))
+        card.registerCardCell( CardBCell.classForCoder(), nib: UINib.init(nibName: "CardBCell", bundle: nil))
+        card.registerCardCell( CardCCell.classForCoder(), nib: UINib.init(nibName: "CardCCell", bundle: nil))
         card.cardDataSource = self
-        let arr = self.generateCardInfo(cardCount: 10)
-        card.set(cards: arr)
+        let arr = self.generateCardInfo(10)
+        card.set(arr)
         
-        self.card.showStyle(style: .cover)
+        self.card.showStyle(.cover)
 
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -41,8 +41,8 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
         return arr
     }
     
-    func cardView(collectionView:UICollectionView,item:AnyObject,indexPath:IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item as! String, for: indexPath )
+    func cardView(collectionView:UICollectionView,item:AnyObject,indexPath:NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(item as! String, forIndexPath: indexPath)
         switch cell {
             case let c as CardACell:
                 c.txtView.text = "Hello This is MMCardView ,Its a demo with different Card Type,This is a text type"
@@ -51,7 +51,8 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
                 c.imgV.image = UIImage.init(named: "image\(v)")            
             case let c as CardCCell:
                 c.clickCallBack {
-                    if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Second") as? SecondViewController {
+                    
+                    if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Second") as? SecondViewController {
                         self.card.presentViewController(to: vc)
                     }
                 }
@@ -64,51 +65,51 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
     
     @IBAction func segmentAction(seg:UISegmentedControl) {
         if (seg.selectedSegmentIndex == 0) {
-            self.card.showStyle(style: .cover)
+            self.card.showStyle(.cover)
         } else {
-            self.card.showStyle(style: .normal)
+            self.card.showStyle(.normal)
         }
     }
     
     @IBAction func filterAction () {
-        let sheet = UIAlertController.init(title: "Filter", message: "Select you want to show in View", preferredStyle: .actionSheet)
+        let sheet = UIAlertController.init(title: "Filter", message: "Select you want to show in View", preferredStyle: .ActionSheet)
 
-        let cellA = UIAlertAction(title: "CellA", style: .default, handler: {
+        let cellA = UIAlertAction(title: "CellA", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
+            self.card.filterAllDataWith( { (idex, obj) -> Bool in
                 return (obj as! String) == "CardA"
             })
         })
         
-        let cellB = UIAlertAction(title: "CellB", style: .default, handler: {
+        let cellB = UIAlertAction(title: "CellB", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             
-            self.card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
+            self.card.filterAllDataWith( { (idex, obj) -> Bool in
                 return (obj as! String) == "CardB"
             })
         })
         
-        let cellC = UIAlertAction(title: "CellC", style: .default, handler: {
+        let cellC = UIAlertAction(title: "CellC", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
+            self.card.filterAllDataWith( { (idex, obj) -> Bool in
                 return (obj as! String) == "CardC"
             })
         })
         let ac = ["CardA","CardC"]
-        let cellAC = UIAlertAction(title: "CellA,CellC", style: .default, handler: {
+        let cellAC = UIAlertAction(title: "CellA,CellC", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             
             
-            self.card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
+            self.card.filterAllDataWith({ (idex, obj) -> Bool in
                 return ac.contains(obj as! String)
             })
         })
         
-        let allCell = UIAlertAction(title: "CellAll", style: .default, handler: {
+        let allCell = UIAlertAction(title: "CellAll", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
            self.card.showAllData()
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
         
@@ -119,7 +120,7 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
 
         sheet.addAction(allCell)
         sheet.addAction(cancelAction)
-        self.present(sheet, animated: true, completion: nil)
+        self.presentViewController(sheet, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

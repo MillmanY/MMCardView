@@ -11,11 +11,11 @@ import MMCardView
 class CardCCell: CardCell,CardCellProtocol {
     @IBOutlet weak var btnClick:UIButton!
     private var callBack:(()->Void)?
-    public static func cellIdentifier() -> String {
+    static func cellIdentifier() -> String {
         return "CardC"
     }
 
-    func clickCallBack(c:@escaping ()->Void) {
+    func clickCallBack(c:()->Void) {
         self.callBack = c
     }
     

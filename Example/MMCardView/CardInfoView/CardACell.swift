@@ -13,7 +13,7 @@ class CardACell: CardCell,CardCellProtocol {
     @IBOutlet weak var labTitle:UILabel!
     @IBOutlet weak var txtView:UITextView!
     
-    public static func cellIdentifier() -> String {
+    static func cellIdentifier() -> String {
         return "CardA"
     }
 

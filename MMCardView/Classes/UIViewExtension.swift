@@ -16,7 +16,8 @@ extension UIView {
         self.layer.cornerRadius = radius
         self.layer.shadowOffset = offset
         self.layer.shadowOpacity = opacity
-        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.5).cgColor
+        
+        self.layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5).CGColor
     }
     
 }

@@ -22,7 +22,7 @@ class SecondViewController: UIViewController {
     }
     
     @IBAction func disMissAction() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
 
