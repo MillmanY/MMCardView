@@ -76,9 +76,9 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 Swift 3
-pod "MMCardView"
+pod 'MMCardView'
 Swift2.3
-pod ‘MMCardView’,:git => 'https://github.com/MillmanY/MMCardView', :branch => ‘Swift2’
+pod 'MMCardView',:git => 'https://github.com/MillmanY/MMCardView', :branch => ‘Swift2’
 
 ```
 
