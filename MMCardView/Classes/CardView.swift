@@ -61,45 +61,62 @@ public class CardView: UIView {
     }
     
     public func filterAllDataWith(isInclued:@escaping (Int,AnyObject) -> Bool) {
-        var removeIdx = [Int]()
-        var insertIdx = [Int]()
         
-        for (idx,value) in cardArr.enumerated() {
-            let rc = isInclued(idx,value)
-            
-            if !rc && filterSet.contains(idx) {
-                let i = filterSet.index(of: idx)!
-                removeIdx.append(i)
-            } else if rc && !filterSet.contains(idx){
-                insertIdx.append(idx)
+        DispatchQueue.main.async {
+         
+            var removeIdx = [Int]()
+            var insertIdx = [Int]()
+            for (idx,value) in self.cardArr.enumerated() {
+                let rc = isInclued(idx,value)
+                
+                if !rc && self.filterSet.contains(idx) {
+                    let i = self.filterSet.index(of: idx)!
+                    removeIdx.append(i)
+                } else if rc && !self.filterSet.contains(idx){
+                    insertIdx.append(idx)
+                }
             }
-        }
-        
-        filterArr = filterArr.enumerated().filter { !removeIdx.contains($0.offset)}.map {$0.element}
-        filterSet = filterSet.enumerated().filter { !removeIdx.contains($0.offset)}.map {$0.element}
-
-        let removePaths = removeIdx.map { IndexPath.init(row: $0, section: 0) }
-        self.collectionView.performBatchUpdates({
+            self.filterArr = self.filterArr.enumerated().filter { !removeIdx.contains($0.offset)}.map {$0.element}
+            self.filterSet = self.filterSet.enumerated().filter { !removeIdx.contains($0.offset)}.map {$0.element}
+            let removePaths = removeIdx.map { IndexPath.init(row: $0, section: 0) }
+            self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: removePaths)
             }) { (finish) in
-                self.filterSet += insertIdx
-                self.filterSet = self.filterSet.enumerated().sorted(by: { (value2, value1) -> Bool in
-                    let isSort = (value1.element > value2.element)
-                    return isSort
-                }).map {$0.element }
+                var add = self.filterSet + insertIdx
+                var insertPath = [IndexPath]()
+                if insertIdx.count > 0 {
+                    insertPath += Array(self.filterSet.count...add.count-1).map {IndexPath.init(row: $0, section: 0)}
+                }
+                self.filterArr = add.map {self.cardArr[$0]}
+                self.filterSet = add
                 
-                self.filterArr = self.cardArr.enumerated().filter({ (idx,value) -> Bool in
-                    return self.filterSet.contains(idx)
-                }).map({ (idx,value) -> AnyObject in
-                    return value
-                })
-
-                let insertPath = insertIdx.map {IndexPath.init(row: self.filterSet.index(of: $0)!, section: 0)}
-
-                self.collectionView.performBatchUpdates({ 
+                
+                self.collectionView.performBatchUpdates({
                     self.collectionView.insertItems(at: insertPath)
                     }, completion: { (finish) in
+                        if insertIdx.count == 0 {
+                            return
+                        }
+                        add = add.enumerated().sorted(by: {$0.0.element < $0.1.element}).map {$0.element}
+                        let value:[(IndexPath,IndexPath)] = self.filterSet.enumerated().map {
+                            let from = IndexPath.init(row: $0.offset, section: 0)
+                            let to = IndexPath.init(row: add.index(of: $0.element)!, section: 0)
+                            return (from , to)
+                        }
+                        self.filterSet = add
+                        self.filterArr = add.map {self.cardArr[$0]}
+                        
+                        self.collectionView.performBatchUpdates({
+                            for (from,to) in value {
+                                print ("From :\(from.row) To : \(to.row)")
+                                let  cell = self.collectionView.cellForItem(at: from)
+                                cell?.layer.zPosition = CGFloat(to.row)
+                                self.collectionView.moveItem(at: from, to: to)
+                            }
+                            }, completion:nil)
+                        
                 })
+            }
         }
     }
     
@@ -162,7 +179,8 @@ extension CardView:UICollectionViewDataSource {
         return filterArr.count
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {        
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print (indexPath.row)
         guard let source = cardDataSource?.cardView(collectionView: collectionView,item: filterArr[indexPath.row], indexPath: indexPath) as? CardCell else {
             return UICollectionViewCell()
         }
