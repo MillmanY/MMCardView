@@ -108,13 +108,16 @@ public class CardView: UIView {
                         
                         self.collectionView.performBatchUpdates({
                             for (from,to) in value {
-                                print ("From :\(from.row) To : \(to.row)")
-                                let  cell = self.collectionView.cellForItem(at: from)
-                                cell?.layer.zPosition = CGFloat(to.row)
                                 self.collectionView.moveItem(at: from, to: to)
+                                print ("To :\(to)")
                             }
-                            }, completion:nil)
-                        
+
+                            }, completion: { (finish) in
+                         
+                                if finish {
+                                    self.collectionView.reloadData()
+                                }
+                        })
                 })
             }
         }
@@ -184,6 +187,8 @@ extension CardView:UICollectionViewDataSource {
         guard let source = cardDataSource?.cardView(collectionView: collectionView,item: filterArr[indexPath.row], indexPath: indexPath) as? CardCell else {
             return UICollectionViewCell()
         }
+        source.layer.zPosition = CGFloat(indexPath.row)
+        source.transform = .identity
         source.collectionV = collectionView
         source.reloadBlock = {
             if let custom = collectionView.collectionViewLayout as? CustomCardLayout {

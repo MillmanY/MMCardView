@@ -26,7 +26,6 @@ class CardLayoutAttributes: UICollectionViewLayoutAttributes {
 }
 
 class CustomCardLayout: UICollectionViewLayout {
-    
     fileprivate var insertPath = [IndexPath]()
     fileprivate var deletePath = [IndexPath]()
     fileprivate var attributeList:[CardLayoutAttributes]!
@@ -198,7 +197,7 @@ class CustomCardLayout: UICollectionViewLayout {
         let arr =  attributeList.filter { (layout) -> Bool in
             return layout.frame.intersects(rect)
         }
-        return  arr
+        return  attributeList
     }
     
     override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
@@ -225,6 +224,7 @@ class CustomCardLayout: UICollectionViewLayout {
             at?.transform = CGAffineTransform.init(translationX: x, y: 0)
             
         }
+        
         return at
     }
     
