@@ -187,8 +187,7 @@ extension CardView:UICollectionViewDataSource {
         guard let source = cardDataSource?.cardView(collectionView: collectionView,item: filterArr[indexPath.row], indexPath: indexPath) as? CardCell else {
             return UICollectionViewCell()
         }
-        source.layer.zPosition = CGFloat(indexPath.row)
-        source.transform = .identity
+//        source.transform = .identity
         source.collectionV = collectionView
         source.reloadBlock = {
             if let custom = collectionView.collectionViewLayout as? CustomCardLayout {

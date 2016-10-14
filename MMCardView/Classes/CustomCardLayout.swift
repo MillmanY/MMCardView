@@ -197,7 +197,7 @@ class CustomCardLayout: UICollectionViewLayout {
         let arr =  attributeList.filter { (layout) -> Bool in
             return layout.frame.intersects(rect)
         }
-        return  attributeList
+        return arr
     }
     
     override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
