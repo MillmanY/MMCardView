@@ -105,7 +105,7 @@ public class CardView: UIView {
                         }
                         self.filterSet = add
                         self.filterArr = add.map {self.cardArr[$0]}
-                        
+
                         self.collectionView.performBatchUpdates({
                             for (from,to) in value {
                                 self.collectionView.moveItem(at: from, to: to)
@@ -115,7 +115,7 @@ public class CardView: UIView {
                             }, completion: { (finish) in
                          
                                 if finish {
-                                    self.collectionView.reloadData()
+                                    self.collectionView.reloadSections(IndexSet.init(integer: 0))
                                 }
                         })
                 })
@@ -188,6 +188,7 @@ extension CardView:UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 //        source.transform = .identity
+//        source.layer.zPosition = CGFloat(indexPath.row)
         source.collectionV = collectionView
         source.reloadBlock = {
             if let custom = collectionView.collectionViewLayout as? CustomCardLayout {

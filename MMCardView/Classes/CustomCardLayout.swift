@@ -107,7 +107,7 @@ class CustomCardLayout: UICollectionViewLayout {
             let indexPath = IndexPath(item: i, section: 0)
             let attr = CardLayoutAttributes.init(forCellWith: indexPath)
             attr.zIndex = i
-            
+//            attr.transform3D = CATransform3DMakeTranslation(0, 0, CGFloat(i))
             if selectIdx < 0 {
                 self.setNoSelect(attribute: attr, realIdx: &realIdx)
             } else if selectIdx == i{
@@ -224,7 +224,6 @@ class CustomCardLayout: UICollectionViewLayout {
             at?.transform = CGAffineTransform.init(translationX: x, y: 0)
             
         }
-        
         return at
     }
     
