@@ -61,7 +61,7 @@ public class CardView: UIView {
     }
     
     public func filterAllDataWith(isInclued:@escaping (Int,AnyObject) -> Bool) {
-        
+     
         DispatchQueue.main.async {
          
             var removeIdx = [Int]()
@@ -94,7 +94,7 @@ public class CardView: UIView {
                 self.collectionView.performBatchUpdates({
                     self.collectionView.insertItems(at: insertPath)
                     }, completion: { (finish) in
-                        if insertIdx.count == 0 {
+                        if insertIdx.count == 0 || !finish {
                             return
                         }
                         add = add.enumerated().sorted(by: {$0.0.element < $0.1.element}).map {$0.element}
@@ -108,14 +108,16 @@ public class CardView: UIView {
 
                         self.collectionView.performBatchUpdates({
                             for (from,to) in value {
+
                                 self.collectionView.moveItem(at: from, to: to)
-                                print ("To :\(to)")
                             }
 
                             }, completion: { (finish) in
-                         
-                                if finish {
-                                    self.collectionView.reloadSections(IndexSet.init(integer: 0))
+                                
+                                for cell in self.collectionView.visibleCells {
+                                    let path = self.collectionView.indexPath(for: cell)
+                                    cell.removeFromSuperview()
+                                    self.collectionView.insertSubview(cell, at: path!.row)                                    
                                 }
                         })
                 })
@@ -183,12 +185,10 @@ extension CardView:UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print (indexPath.row)
         guard let source = cardDataSource?.cardView(collectionView: collectionView,item: filterArr[indexPath.row], indexPath: indexPath) as? CardCell else {
             return UICollectionViewCell()
         }
 //        source.transform = .identity
-//        source.layer.zPosition = CGFloat(indexPath.row)
         source.collectionV = collectionView
         source.reloadBlock = {
             if let custom = collectionView.collectionViewLayout as? CustomCardLayout {

@@ -92,11 +92,12 @@ class CustomCardLayout: UICollectionViewLayout {
     
     override func prepare() {
         super.prepare()
-        attributeList = self.generateAttributeList()
+        self.attributeList = self.generateAttributeList()
     }
         
     fileprivate func generateAttributeList() -> [CardLayoutAttributes] {
 
+        
         var arr = [CardLayoutAttributes]()
         let count = self.collectionView!.numberOfItems(inSection: 0)
         var bottomIdx:CGFloat = 0
@@ -197,10 +198,12 @@ class CustomCardLayout: UICollectionViewLayout {
         let arr =  attributeList.filter { (layout) -> Bool in
             return layout.frame.intersects(rect)
         }
+        
         return arr
     }
     
     override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        
 
         let at = (itemIndexPath.row > attributeList.count-1) ? super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) :attributeList[itemIndexPath.row]
         if self.deletePath.contains(itemIndexPath) {
@@ -208,29 +211,28 @@ class CustomCardLayout: UICollectionViewLayout {
             let x = self.collectionView!.frame.width * CGFloat(randomLoc)
             
             at?.transform = CGAffineTransform.init(translationX: x, y: 0)
-    
         }
+        
         return at
     }
 
     override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        
     
-        let at = (itemIndexPath.row > attributeList.count-1) ? super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) :attributeList[itemIndexPath.row]
+        let at = (itemIndexPath.row > attributeList.count-1) ? super.initialLayoutAttributesForAppearingItem(at: itemIndexPath) :attributeList[itemIndexPath.row]
         if self.insertPath.contains(itemIndexPath) {
             let randomLoc = (itemIndexPath.row%2 == 0) ? 1 : -1
             let x = self.collectionView!.frame.width * CGFloat(randomLoc)
             
             at?.transform = CGAffineTransform.init(translationX: x, y: 0)
-            
         }
+        
         return at
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
-    
+
     override func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
         deletePath.removeAll()
@@ -247,4 +249,5 @@ class CustomCardLayout: UICollectionViewLayout {
             }
         }
     }
+
 }

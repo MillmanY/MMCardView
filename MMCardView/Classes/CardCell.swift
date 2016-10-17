@@ -59,10 +59,11 @@ open class CardCell:UICollectionViewCell{
 
     open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
+        layer.zPosition = CGFloat(layoutAttributes.zIndex)
         if let layout = layoutAttributes as? CardLayoutAttributes {
             customCardLayout = layout
-            
         }
+        
     }
 }
 

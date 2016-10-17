@@ -50,7 +50,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="sc7-gT-lYY" secondAttribute="bottom" id="6Ku-O6-J6R"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bep-ZJ-jJJ" secondAttribute="leading" id="8En-HN-tUe"/>
