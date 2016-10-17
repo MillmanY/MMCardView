@@ -114,11 +114,17 @@ public class CardView: UIView {
 
                             }, completion: { (finish) in
                                 
-                                for cell in self.collectionView.visibleCells {
-                                    let path = self.collectionView.indexPath(for: cell)
+                                let sortsCell = self.collectionView.visibleCells.sorted(by: { (cell1, cell2) -> Bool in
+                                    let path1 = self.collectionView.indexPath(for: cell1)
+                                    let path2 = self.collectionView.indexPath(for: cell2)
+                                    return path1!.row < path2!.row
+                                })
+                                
+                                
+                                for (index,cell) in sortsCell.enumerated() {
                                     cell.removeFromSuperview()
-                                    self.collectionView.insertSubview(cell, at: path!.row)                                    
-                                }
+                                    self.collectionView.insertSubview(cell, at: index)
+                                }                                
                         })
                 })
             }
