@@ -112,17 +112,27 @@ public class CardView: UIView {
                         
                         self.collectionView.performBatchUpdates({
                             for (from,to) in value {
-                                print ("From :\(from.row) To : \(to.row)")
-                                let  cell = self.collectionView.cellForItemAtIndexPath(from)
-                                cell?.layer.zPosition = CGFloat(to.row)
                                 self.collectionView.moveItemAtIndexPath(from, toIndexPath: to)
                             }
-                            }, completion:nil)
+                            }, completion:{ (finish) in
+                                
+                                let sortsCell = self.collectionView.visibleCells().sort({ (cell1, cell2) -> Bool in
+                                    let path1 = self.collectionView.indexPathForCell(cell1)
+                                    let path2 = self.collectionView.indexPathForCell(cell2)
+                                    return path1!.row < path2?.row
+                                })
+                                
+                                for (index,cell) in sortsCell.enumerate() {
+                                    cell.removeFromSuperview()
+                                    self.collectionView.insertSubview(cell, atIndex: index)
+                                }
+                        })
+                        
                         
                 })
             }
         }
-    
+        
     }
     
     public func showAllData() {

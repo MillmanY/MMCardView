@@ -60,6 +60,8 @@ public class CardCell:UICollectionViewCell{
     }
     
     override public func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.applyLayoutAttributes(layoutAttributes)
+        layer.zPosition = CGFloat(layoutAttributes.zIndex)
         if let layout = layoutAttributes as? CardLayoutAttributes {
             customCardLayout = layout
             
