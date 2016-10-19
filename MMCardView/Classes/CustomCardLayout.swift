@@ -41,7 +41,11 @@ class CustomCardLayout: UICollectionViewLayout {
     
     var selectIdx:Int {
         set {
-            if selectIdx >= 0 && newValue >= 0 {
+            
+            if self.collectionView?.numberOfItems(inSection: 0) == 1 {
+                self.collectionView?.isScrollEnabled = false
+                _selectIdx = 0
+            } else if selectIdx >= 0 && newValue >= 0 {
                 self.collectionView?.isScrollEnabled = true
                 _selectIdx = -1
             } else {

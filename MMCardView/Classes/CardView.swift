@@ -94,6 +94,13 @@ public class CardView: UIView {
                 self.collectionView.performBatchUpdates({
                     self.collectionView.insertItems(at: insertPath)
                     }, completion: { (finish) in
+                        
+                        if self.filterArr.count == 1 {
+                            self.selectAt(index: 0)
+                        } else {
+                            self.selectAt(index: -1)
+                        }
+
                         if insertIdx.count == 0 || !finish {
                             return
                         }
@@ -145,7 +152,7 @@ public class CardView: UIView {
     
     public func presentViewController(to vc:UIViewController) {
         if let custom = collectionView.collectionViewLayout as? CustomCardLayout ,custom.selectIdx == -1{
-            print ("You nees Select a cell")
+            print ("You need select a cell")
             return
         }
 
@@ -170,13 +177,17 @@ public class CardView: UIView {
         }
     }
 
+    fileprivate func selectAt(index:Int) {
+        if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
+            custom.selectIdx = index
+        }
+    }
+
 }
 
 extension CardView:UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
-            custom.selectIdx = indexPath.row
-        }
+        self.selectAt(index: indexPath.row)
     }
 }
 

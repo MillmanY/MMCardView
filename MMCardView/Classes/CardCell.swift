@@ -19,6 +19,9 @@ open class CardCell:UICollectionViewCell{
     var originTouchY:CGFloat = 0.0
     var pangesture:UIPanGestureRecognizer?
     func pan(rec:UIPanGestureRecognizer){
+        if self.collectionV.numberOfItems(inSection: 0) == 1 {
+            return
+        }
         let point = rec.location(in: collectionV)
         let shiftY:CGFloat = (point.y - originTouchY  > 0) ? point.y - originTouchY : 0
         
