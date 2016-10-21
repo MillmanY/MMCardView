@@ -8,7 +8,6 @@
 
 import UIKit
 
-let TitleHeight:CGFloat = 56.0
 let BottomPercent:CGFloat = 0.85
 
 public enum SequenceStyle:Int {
@@ -78,6 +77,14 @@ class CustomCardLayout: UICollectionViewLayout {
         }
     }
     
+    var titleHeight:CGFloat = 56.0 {
+        didSet {
+            self.collectionView?.performBatchUpdates({ 
+                self.invalidateLayout()
+            }, completion: nil)
+        }
+    }
+    
     lazy var cellSize:CGSize = {
         let w = self.collectionView!.bounds.width
         let h = self.collectionView!.bounds.height * BottomPercent
@@ -89,7 +96,7 @@ class CustomCardLayout: UICollectionViewLayout {
         set {}
         get {
             let count = self.collectionView!.numberOfItems(inSection: 0)
-            let contentHeight = TitleHeight*CGFloat(count-1) + cellSize.height
+            let contentHeight = titleHeight*CGFloat(count-1) + cellSize.height
             return CGSize.init(width: cellSize.width, height: contentHeight )
         }
     }
@@ -127,10 +134,10 @@ class CustomCardLayout: UICollectionViewLayout {
     
     fileprivate func setNoSelect(attribute:CardLayoutAttributes, realIdx:inout Int) {
         
-        let shitIdx = Int(self.collectionView!.contentOffset.y/TitleHeight)
+        let shitIdx = Int(self.collectionView!.contentOffset.y/titleHeight)
         let index = attribute.indexPath.row
         var currentFrame = CGRect.zero
-        currentFrame = CGRect(x: self.collectionView!.frame.origin.x, y: TitleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
+        currentFrame = CGRect(x: self.collectionView!.frame.origin.x, y: titleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
 
         switch showStyle {
             case .cover:
@@ -152,7 +159,7 @@ class CustomCardLayout: UICollectionViewLayout {
     
     fileprivate func setBottom(attribute:CardLayoutAttributes, bottomIdx:inout CGFloat) {
         let index = attribute.indexPath.row
-        let currentFrame = CGRect(x: self.collectionView!.frame.origin.x, y: TitleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
+        let currentFrame = CGRect(x: self.collectionView!.frame.origin.x, y: titleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
         let baseHeight = self.collectionView!.contentOffset.y + collectionView!.bounds.height * 0.90
         let bottomH = cellSize.height  * 0.1
         let margin:CGFloat = bottomH/CGFloat(bottomShowCount)
@@ -167,7 +174,7 @@ class CustomCardLayout: UICollectionViewLayout {
         } else if contentFrame.intersects(currentFrame)  {
             attribute.frame = CGRect.init(x: 0, y: maxY, width: cellSize.width, height: cellSize.height)
         }else {
-            attribute.frame = CGRect(x: 0, y: TitleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
+            attribute.frame = CGRect(x: 0, y: titleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
         }
     }
     

@@ -23,7 +23,6 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
         
         self.card.showStyle(style: .cover)
         
-            
 
         // Do any additional setup after loading the view, typically from a nib.
     }

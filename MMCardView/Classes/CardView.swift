@@ -176,13 +176,20 @@ public class CardView: UIView {
             layout.bottomShowCount = count
         }
     }
+    
+    public func setCardTitleHeight(heihgt:CGFloat) {
+        DispatchQueue.main.async {
+            if let layout = self.collectionView.collectionViewLayout as? CustomCardLayout {
+                layout.titleHeight = heihgt
+            }
+        }
+    }
 
     fileprivate func selectAt(index:Int) {
         if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
             custom.selectIdx = index
         }
     }
-
 }
 
 extension CardView:UICollectionViewDelegate {
