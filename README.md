@@ -69,6 +69,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 2.Flip ViewController
 
     card.presentViewController(to: vc)
+3.Set show height for every cell (Default is 56.0)
+
+    card.setCardTitleHeight(heihgt: 56)
 ## Installation
 
 MMCardView is available through [CocoaPods](http://cocoapods.org). To install
