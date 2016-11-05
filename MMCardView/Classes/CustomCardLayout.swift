@@ -108,7 +108,6 @@ class CustomCardLayout: UICollectionViewLayout {
         
     fileprivate func generateAttributeList() -> [CardLayoutAttributes] {
 
-        
         var arr = [CardLayoutAttributes]()
         let count = self.collectionView!.numberOfItems(inSection: 0)
         var bottomIdx:CGFloat = 0
@@ -119,7 +118,6 @@ class CustomCardLayout: UICollectionViewLayout {
             let indexPath = IndexPath(item: i, section: 0)
             let attr = CardLayoutAttributes.init(forCellWith: indexPath)
             attr.zIndex = i
-//            attr.transform3D = CATransform3DMakeTranslation(0, 0, CGFloat(i))
             if selectIdx < 0 {
                 self.setNoSelect(attribute: attr, realIdx: &realIdx)
             } else if selectIdx == i{

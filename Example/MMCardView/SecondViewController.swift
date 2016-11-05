@@ -8,8 +8,11 @@
 
 import UIKit
 
+protocol SecondViewProtocol {
+    func removeCard()
+}
 class SecondViewController: UIViewController {
-
+    var delegate:SecondViewProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,6 +26,12 @@ class SecondViewController: UIViewController {
     
     @IBAction func disMissAction() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func removeAction() {
+        self.dismiss(animated: true) { 
+            self.delegate?.removeCard()
+        }
     }
     
 

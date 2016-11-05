@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -102,13 +102,28 @@
                                     <action selector="disMissAction" destination="qUL-ch-3Gc" eventType="touchUpInside" id="Ssr-xx-2Wo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ5-Yc-KJD">
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="hSF-gv-tJA"/>
+                                </constraints>
+                                <state key="normal" title="Remove">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeAction" destination="qUL-ch-3Gc" eventType="touchUpInside" id="hEQ-Sf-1NO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.76862745099999996" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="0uD-fX-eOH" secondAttribute="leading" id="64B-Kk-c0c"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="ZQ5-Yc-KJD" secondAttribute="leading" id="Anz-Xs-QOb"/>
                             <constraint firstItem="kMB-nx-eN2" firstAttribute="top" secondItem="vUo-if-LD4" secondAttribute="bottom" constant="14" id="KQi-Eq-qSX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kMB-nx-eN2" secondAttribute="trailing" id="NIL-ys-wHB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZQ5-Yc-KJD" secondAttribute="trailing" id="XN3-FM-v3f"/>
                             <constraint firstAttribute="leadingMargin" secondItem="kMB-nx-eN2" secondAttribute="leading" id="glZ-pJ-bTI"/>
+                            <constraint firstItem="0uD-fX-eOH" firstAttribute="top" secondItem="ZQ5-Yc-KJD" secondAttribute="bottom" constant="15" id="hmq-nq-nK8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0uD-fX-eOH" secondAttribute="trailing" id="kmz-wu-WRM"/>
                             <constraint firstItem="apm-6w-Hss" firstAttribute="top" secondItem="0uD-fX-eOH" secondAttribute="bottom" constant="20" id="pIt-9e-oBI"/>
                         </constraints>

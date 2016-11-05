@@ -35,9 +35,6 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
             let value = Int(arc4random_uniform(3))
             arr.append(xibName[value] as AnyObject)
         }
-//        arr.append("CardA" as AnyObject)
-//        arr.append("CardB" as AnyObject)
-//        arr.append("CardC" as AnyObject)
 
         return arr
     }
@@ -53,6 +50,7 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
             case let c as CardCCell:
                 c.clickCallBack {
                     if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Second") as? SecondViewController {
+                        vc.delegate = self
                         self.card.presentViewController(to: vc)
                     }
                 }
@@ -112,7 +110,7 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
-        
+                
         sheet.addAction(cellA)
         sheet.addAction(cellB)
         sheet.addAction(cellC)
@@ -127,6 +125,11 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
 
+extension ViewController:SecondViewProtocol {
+    func removeCard() {
+       card.removeSelectCard()
+    }
 }
 

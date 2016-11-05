@@ -184,6 +184,49 @@ public class CardView: UIView {
             }
         }
     }
+    
+    public func setCardHeight(height:CGFloat) {
+        DispatchQueue.main.async {
+            if let layout = self.collectionView.collectionViewLayout as? CustomCardLayout {
+                layout.cellSize = CGSize.init(width: layout.cellSize.width, height: height)
+                layout.invalidateLayout()
+            }
+        }
+    }
+    
+    public func removeCard(at index:Int) {
+        if index > -1 {
+            self.collectionView.performBatchUpdates({
+                self.filterArr.remove(at: index)
+                self.collectionView.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+
+            }, completion: { (finish) in
+                if !finish {
+                    return
+                }
+
+                if let layout = self.collectionView.collectionViewLayout as? CustomCardLayout {
+                    layout.selectIdx = -1
+                }
+                
+                let realIdx = self.filterSet[index]
+                self.filterSet.remove(at: index)
+                self.cardArr.remove(at: realIdx)
+            })
+        }
+    }
+    
+    public func removeSelectCard() {
+        let idx = currentIdx()
+        self.removeCard(at: idx)
+    }
+
+    public func currentIdx() -> Int {
+        if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
+           return custom.selectIdx
+        }
+        return -1
+    }
 
     fileprivate func selectAt(index:Int) {
         if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
