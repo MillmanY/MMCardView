@@ -15,14 +15,9 @@ enum TransitionMode: Int {
 public class CustomFlipTransition: NSObject,UIViewControllerAnimatedTransitioning {
     var duration = 0.3
     var transitionMode:TransitionMode = .Present
-    var cardView:UICollectionViewCell!
+    weak var cardView:UICollectionViewCell!
+    weak var blurEffectView:UIVisualEffectView!
     var originalCardFrame = CGRect.zero
-    lazy var blurView:UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.alpha = 0.0
-        return blurEffectView
-    }()
     
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
@@ -41,15 +36,20 @@ public class CustomFlipTransition: NSObject,UIViewControllerAnimatedTransitionin
             toView?.frame = self.cardView.bounds
             toView?.layer.cornerRadius = viewRadius
             self.cardView.addSubview(toView!)
-            self.blurView.frame = containerView.bounds
-            self.blurView.alpha = 0.0
-            containerView.addSubview(self.blurView)
+            
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+            let blurView = UIVisualEffectView(effect: blurEffect)
+            self.blurEffectView = blurView;
+            
+            blurView.frame = containerView.bounds
+            blurView.alpha = 0.0
+            containerView.addSubview(blurView)
 
             UIView.transition(with: self.cardView, duration: 0.7, options: [.transitionFlipFromRight,.curveEaseIn], animations: {
                 self.cardView.frame = CGRect.init(x: self.originalCardFrame.origin.x, y: self.originalCardFrame.origin.y, width: toViewF.width, height: toViewF.height)
                 }, completion: { (finish) in
                     UIView.animate(withDuration: 0.2, animations: {
-                        self.blurView.alpha = 1.0
+                        blurView.alpha = 1.0
                     })
                     
                     toView?.frame = toViewF
@@ -68,10 +68,10 @@ public class CustomFlipTransition: NSObject,UIViewControllerAnimatedTransitionin
                 fromView?.frame = CGRect.init(x: fromView!.frame.origin.x, y: fromView!.frame.origin.y, width: self.originalCardFrame.width, height: self.originalCardFrame.height)
                 content.frame = CGRect.init(x: fromView!.frame.origin.x, y: fromView!.frame.origin.y, width: self.originalCardFrame.width, height: self.originalCardFrame.height)
                 self.cardView.frame = CGRect.init(x: 0, y: self.originalCardFrame.origin.y, width: self.originalCardFrame.width, height: self.originalCardFrame.height)
-                self.blurView.alpha = 0.0
+                self.blurEffectView.alpha = 0.0
 
                 }, completion: { (finish) in
-                    self.blurView.removeFromSuperview()
+                    self.blurEffectView.removeFromSuperview()
                     content.backgroundColor = originalCrolor
                     content.removeFromSuperview()
                     self.cardView.addSubview(content)

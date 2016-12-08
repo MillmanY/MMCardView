@@ -56,7 +56,8 @@ class CustomCardLayout: UICollectionViewLayout {
             self.collectionView?.performBatchUpdates({
                 self.collectionView?.reloadData()
             }, completion: nil)
-        } get {
+        }
+        get {
             return _selectIdx
         }
     }
