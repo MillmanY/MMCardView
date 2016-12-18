@@ -10,6 +10,7 @@ import UIKit
 import MMCardView
 class CardCCell: CardCell,CardCellProtocol {
     @IBOutlet weak var btnClick:UIButton!
+    private var callBack:(()->Void)?
     public static func cellIdentifier() -> String {
         return "CardC"
     }

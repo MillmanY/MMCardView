@@ -15,7 +15,6 @@ public protocol CardCellProtocol {
 open class CardCell:UICollectionViewCell{
     weak var collectionV:UICollectionView!
     var reloadBlock:(()->Void)?
-    public var callBack:(()->Void)?
     var customCardLayout:CardLayoutAttributes?
     var originTouchY:CGFloat = 0.0
     var pangesture:UIPanGestureRecognizer?
