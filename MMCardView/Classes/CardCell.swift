@@ -13,7 +13,7 @@ public protocol CardCellProtocol {
 }
 
 open class CardCell:UICollectionViewCell{
-    var collectionV:UICollectionView!
+    weak var collectionV:UICollectionView!
     var reloadBlock:(()->Void)?
     var customCardLayout:CardLayoutAttributes?
     var originTouchY:CGFloat = 0.0
