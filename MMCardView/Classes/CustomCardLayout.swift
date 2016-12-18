@@ -142,6 +142,7 @@ class CustomCardLayout: UICollectionViewLayout {
                     attribute.frame = CGRect(x: currentFrame.origin.x, y: self.collectionView!.contentOffset.y, width: cellSize.width, height: cellSize.height)
                 } else if index < shitIdx-2 {
                     attribute.isHidden = true
+                    attribute.frame = CGRect(x: currentFrame.origin.x, y: self.collectionView!.contentOffset.y, width: cellSize.width, height: cellSize.height)
                 }else {
                     attribute.frame = currentFrame
                 }
