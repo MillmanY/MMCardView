@@ -113,13 +113,12 @@ class CustomCardLayout: UICollectionViewLayout {
         var bottomIdx:CGFloat = 0
         bottomShowSet = self.bottomIdxArr()
  
-        var realIdx = 0
         for i in 0..<count {
             let indexPath = IndexPath(item: i, section: 0)
             let attr = CardLayoutAttributes.init(forCellWith: indexPath)
             attr.zIndex = i
             if selectIdx < 0 {
-                self.setNoSelect(attribute: attr, realIdx: &realIdx)
+                self.setNoSelect(attribute: attr)
             } else if selectIdx == i{
                 self.setSelect(attribute: attr)
             } else {
@@ -130,18 +129,19 @@ class CustomCardLayout: UICollectionViewLayout {
         return arr
     }
     
-    fileprivate func setNoSelect(attribute:CardLayoutAttributes, realIdx:inout Int) {
+    fileprivate func setNoSelect(attribute:CardLayoutAttributes) {
         
         let shitIdx = Int(self.collectionView!.contentOffset.y/titleHeight)
         let index = attribute.indexPath.row
         var currentFrame = CGRect.zero
         currentFrame = CGRect(x: self.collectionView!.frame.origin.x, y: titleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
-
         switch showStyle {
             case .cover:
                 if index <= shitIdx && (index >= shitIdx-2) || index == 0{
                     attribute.frame = CGRect(x: currentFrame.origin.x, y: self.collectionView!.contentOffset.y, width: cellSize.width, height: cellSize.height)
-                } else {
+                } else if index < shitIdx-2 {
+                    attribute.isHidden = true
+                }else {
                     attribute.frame = currentFrame
                 }
             case .normal:
