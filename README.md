@@ -72,6 +72,13 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 3.Set show height for every cell (Default is 56.0)
 
     card.setCardTitleHeight(heihgt: 56)
+4.Set Card Height (Defualt is Screen 85%)
+
+    card.setCardHeight(height:100)
+5.Remove Card
+
+    card.removeCard(at index:0)
+    card.removeSelectCard()  
 ## Installation
 
 MMCardView is available through [CocoaPods](http://cocoapods.org). To install
