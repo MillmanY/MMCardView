@@ -30,6 +30,7 @@ class CustomCardLayout: UICollectionViewLayout {
     fileprivate var attributeList = [CardLayoutAttributes]()
     fileprivate var bottomShowSet = [Int]()
     fileprivate var _selectIdx = -1
+        
     var showStyle:SequenceStyle = .normal {
         didSet {
             self.collectionView?.performBatchUpdates({
@@ -99,6 +100,11 @@ class CustomCardLayout: UICollectionViewLayout {
             let contentHeight = titleHeight*CGFloat(count-1) + cellSize.height
             return CGSize.init(width: cellSize.width, height: contentHeight )
         }
+    }
+    
+    func updateCellSize() {
+        self.cellSize.width  = self.collectionView!.frame.width
+        self.cellSize.height = self.collectionView!.bounds.height * BottomPercent
     }
     
     override func prepare() {
