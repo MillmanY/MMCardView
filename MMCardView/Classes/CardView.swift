@@ -233,6 +233,11 @@ public class CardView: UIView {
             custom.selectIdx = index
         }
     }
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        self.collectionView.frame = self.bounds
+    }
 }
 
 extension CardView:UICollectionViewDelegate {

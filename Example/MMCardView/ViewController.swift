@@ -125,6 +125,7 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
 }
 
 extension ViewController:SecondViewProtocol {
