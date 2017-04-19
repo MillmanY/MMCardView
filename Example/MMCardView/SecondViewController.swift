@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol SecondViewProtocol {
+protocol SecondViewProtocol : class{
     func removeCard()
 }
 class SecondViewController: UIViewController {
-    var delegate:SecondViewProtocol?
+    weak var delegate:SecondViewProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -48,12 +48,13 @@ class ViewController: UIViewController,CardCollectionViewDataSource {
                 let v = Int(arc4random_uniform(5))+1
                 c.imgV.image = UIImage.init(named: "image\(v)")            
             case let c as CardCCell:
-                c.clickCallBack {
+                c.clickCallBack{
+                    [unowned self] in
                     if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Second") as? SecondViewController {
                         vc.delegate = self
                         self.card.presentViewController(to: vc)
                     }
-                }
+            }
             default:
                 return UICollectionViewCell()
 
