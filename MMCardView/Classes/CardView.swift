@@ -61,7 +61,6 @@ public class CardView: UIView {
     }
     
     public func filterAllDataWith(isInclued:@escaping (Int,AnyObject) -> Bool) {
-     
         DispatchQueue.main.async {
          
             var removeIdx = [Int]()
@@ -151,15 +150,15 @@ public class CardView: UIView {
     }
     
     public func presentViewController(to vc:UIViewController) {
-        if let custom = collectionView.collectionViewLayout as? CustomCardLayout ,custom.selectIdx == -1{
-            print ("You need select a cell")
-            return
-        }
-
-        let current = UIViewController.currentViewController()
-        vc.transitioningDelegate = self
-        vc.modalPresentationStyle = .custom
-        current.present(vc, animated: true, completion: nil)
+//        if let custom = collectionView.collectionViewLayout as? CustomCardLayout ,custom.selectIdx == -1{
+//            print ("You need select a cell")
+//            return
+//        }
+//
+//        let current = UIViewController.currentViewController()
+//        vc.transitioningDelegate = self
+//        vc.modalPresentationStyle = .custom
+//        current.present(vc, animated: true, completion: nil)
     }
 
     public func registerCardCell(c:AnyClass,nib:UINib) {
@@ -196,23 +195,23 @@ public class CardView: UIView {
     
     public func removeCard(at index:Int) {
         if index > -1 {
-            self.collectionView.performBatchUpdates({
-                self.filterArr.remove(at: index)
-                self.collectionView.deleteItems(at: [IndexPath.init(item: index, section: 0)])
-
-            }, completion: { (finish) in
-                if !finish {
-                    return
-                }
-
-                if let layout = self.collectionView.collectionViewLayout as? CustomCardLayout {
-                    layout.selectIdx = -1
-                }
-                
-                let realIdx = self.filterSet[index]
-                self.filterSet.remove(at: index)
-                self.cardArr.remove(at: realIdx)
-            })
+//            self.collectionView.performBatchUpdates({
+//                self.filterArr.remove(at: index)
+//                self.collectionView.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+//
+//            }, completion: { (finish) in
+//                if !finish {
+//                    return
+//                }
+//
+//                if let layout = self.collectionView.collectionViewLayout as? CustomCardLayout {
+//                    layout.selectIdx = -1
+//                }
+//                
+//                let realIdx = self.filterSet[index]
+//                self.filterSet.remove(at: index)
+//                self.cardArr.remove(at: realIdx)
+//            })
         }
     }
     
@@ -222,15 +221,15 @@ public class CardView: UIView {
     }
 
     public func currentIdx() -> Int {
-        if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
-           return custom.selectIdx
-        }
+//        if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
+//           return custom.selectIdx
+//        }
         return -1
     }
 
     fileprivate func selectAt(index:Int) {
         if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
-            custom.selectIdx = index
+//            custom.selectIdx = index
         }
     }
 
@@ -238,7 +237,8 @@ public class CardView: UIView {
         super.layoutSubviews()
         if let layout = collectionView.collectionViewLayout as? CustomCardLayout {
             layout.updateCellSize()
-            layout.invalidateLayout()
+            self.collectionView.reloadData()
+//            layout.invalidateLayout()
         }
     }
 
@@ -246,29 +246,45 @@ public class CardView: UIView {
 
 extension CardView:UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectAt(index: indexPath.row)
+        if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
+            custom.selectPath = indexPath
+        }
     }
 }
 
 extension CardView:UICollectionViewDataSource {
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 3
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filterArr.count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 3
+        case 2:
+            return 20
+        default:
+            return 0
+        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let source = cardDataSource?.cardView(collectionView: collectionView,item: filterArr[indexPath.row], indexPath: indexPath) as? CardCell else {
+        guard let source = cardDataSource?.cardView(collectionView: collectionView,item: "CardC" as AnyObject, indexPath: indexPath) as? CardCell else {
             return UICollectionViewCell()
         }
+
+//        guard let source = cardDataSource?.cardView(collectionView: collectionView,item: filterArr[indexPath.row], indexPath: indexPath) as? CardCell else {
+//            return UICollectionViewCell()
+//        }
 //        source.transform = .identity
         source.collectionV = collectionView
         source.reloadBlock = {
             if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
-                custom.selectIdx = indexPath.row
+                custom.selectPath = nil
+//                custom.selectIdx = indexPath.row
             }
         }
         source.isHidden = false
@@ -281,7 +297,7 @@ extension CardView:UIViewControllerTransitioningDelegate{
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .Present
         if let custom = collectionView.collectionViewLayout as? CustomCardLayout {
-            transition.cardView = self.collectionView.cellForItem(at: IndexPath.init(row: custom.selectIdx, section: 0))
+//            transition.cardView = self.collectionView.cellForItem(at: IndexPath.init(row: custom.selectIdx, section: 0))
             custom.isFullScreen = true
         }
         return transition

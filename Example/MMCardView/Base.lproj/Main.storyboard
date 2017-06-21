@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,10 +22,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sc7-gT-lYY" customClass="CardView" customModule="MMCardView">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JHC-qq-J6f" customClass="MMCollectionView" customModule="MMCardView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eIL-Lk-Q5M">
+                                    <size key="itemSize" width="344" height="146"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardD" id="Ucw-01-Yod" customClass="CardDCell" customModule="MMCardView_Example" customModuleProvider="target">
+                                        <rect key="frame" x="15.5" y="0.0" width="344" height="146"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="344" height="146"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.1176470588" green="0.70196078429999997" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="9q9-Bi-ATG"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="Euh-SE-IHC"/>
+                                </connections>
+                            </collectionView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bep-ZJ-jJJ">
+                                <rect key="frame" x="16" y="25" width="128" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="erH-sS-F3D"/>
                                     <constraint firstAttribute="height" constant="28" id="u34-vX-dfo"/>
@@ -37,6 +63,7 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWo-Py-BzY">
+                                <rect key="frame" x="266" y="20" width="109" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="109" id="U0V-UT-nlt"/>
                                     <constraint firstAttribute="height" constant="30" id="oqw-6p-ggm"/>
@@ -52,18 +79,18 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="sc7-gT-lYY" secondAttribute="bottom" id="6Ku-O6-J6R"/>
+                            <constraint firstAttribute="trailing" secondItem="JHC-qq-J6f" secondAttribute="trailing" id="3fm-Yg-uu9"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bep-ZJ-jJJ" secondAttribute="leading" id="8En-HN-tUe"/>
-                            <constraint firstItem="sc7-gT-lYY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="40" id="DKS-hg-f3S"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="sc7-gT-lYY" secondAttribute="trailing" constant="-16" id="EHC-mF-AAe"/>
+                            <constraint firstAttribute="leading" secondItem="JHC-qq-J6f" secondAttribute="leading" id="91a-b6-g70"/>
+                            <constraint firstItem="JHC-qq-J6f" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="44" id="VTI-8w-vxv"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="JHC-qq-J6f" secondAttribute="bottom" id="WRN-jC-azr"/>
                             <constraint firstItem="EWo-Py-BzY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="eug-cq-bzb"/>
-                            <constraint firstItem="sc7-gT-lYY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="hV4-eE-Jby"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EWo-Py-BzY" secondAttribute="trailing" constant="-16" id="hWj-wh-dMx"/>
-                            <constraint firstItem="sc7-gT-lYY" firstAttribute="top" secondItem="bep-ZJ-jJJ" secondAttribute="bottom" constant="7" id="ptx-VA-sRX"/>
+                            <constraint firstItem="bep-ZJ-jJJ" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="5" id="kYO-yh-GOg"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="card" destination="sc7-gT-lYY" id="oQt-ON-Bh8"/>
+                        <outlet property="cardCollection" destination="JHC-qq-J6f" id="mla-72-tGM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -83,6 +110,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Second" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMB-nx-eN2">
+                                <rect key="frame" x="16" y="34" width="343" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="Ysl-jC-sB7"/>
                                 </constraints>
@@ -91,6 +119,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0uD-fX-eOH">
+                                <rect key="frame" x="16" y="617" width="343" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="UsW-kQ-hdS"/>
@@ -103,6 +132,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ5-Yc-KJD">
+                                <rect key="frame" x="16" y="572" width="343" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="hSF-gv-tJA"/>
