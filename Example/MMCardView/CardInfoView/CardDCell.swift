@@ -8,11 +8,7 @@
 
 import UIKit
 import MMCardView
-class CardDCell: CardCell,CardCellProtocol {
-    public static func cellIdentifier() -> String {
-        return "CardD"
-    }
-    
+class CardDCell: CardCell {    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

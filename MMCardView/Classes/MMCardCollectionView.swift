@@ -12,7 +12,7 @@ public enum LayoutStyle {
 }
 
 public class MMCollectionView: UICollectionView {
-
+    fileprivate var transition = CustomFlipTransition(duration: 0.5)
     fileprivate lazy var _proxyDelegate: DelegateProxy = {
         return DelegateProxy(parentObject: self)
     }()
@@ -24,11 +24,12 @@ public class MMCollectionView: UICollectionView {
             }
         }
     }
+    
     override public var delegate: UICollectionViewDelegate? {
         get {
             return super.delegate
         } set {
-            self._proxyDelegate.setForward(newValue)
+            self._proxyDelegate.forwardDelegate = newValue
             super.delegate = _proxyDelegate
         }
     }
@@ -47,27 +48,16 @@ public class MMCollectionView: UICollectionView {
         self.layoutStyle = .card
     }
     
-    override public func layoutSubviews() {
-        super.layoutSubviews()
-//        switch self.collectionViewLayout {
-//        case let l as CustomCardLayout:
-//            l.updateCellSize()
-//        default:
-//            break
-//        }
-//        self.reloadData()
-    }
-    
-    public func expandBottomCount(count:Int) {
-        if let layout = self.collectionViewLayout as? CustomCardLayout {
-            layout.bottomShowCount = count
-        }
-    }
-    
-    public func setCardTitleHeight(heihgt:CGFloat) {
-        DispatchQueue.main.async {
-            if let layout = self.collectionViewLayout as? CustomCardLayout {
-                layout.titleHeight = heihgt
+    override public var bounds: CGRect {
+        didSet {
+            if oldValue != bounds && bounds.size != .zero {
+                switch self.collectionViewLayout {
+                case let l as CustomCardLayout:
+                    l.updateCellSize()
+                default:
+                    break
+                }
+                self.reloadData()
             }
         }
     }
@@ -80,19 +70,22 @@ public class MMCollectionView: UICollectionView {
             }
         }
     }
-    
-    public func showStyle(style:SequenceStyle) {
-        print(self.subviews)
-//        self.reloadData()
-        self.subviews.forEach { (vi) in
-            vi.isHidden = false
+    public func presentViewController(to vc:UIViewController) {
+
+        if (self.collectionViewLayout as? CustomCardLayout)?.selectPath == nil {
+            print ("You need select a cell")
+            return
         }
-//        DispatchQueue.main.async {
-//            if let custom = self.collectionViewLayout as? CustomCardLayout {
-//                custom.showStyle = style
-//            }
-//        }
+        
+        let current = UIViewController.currentViewController()
+        vc.transitioningDelegate = self
+        vc.modalPresentationStyle = .custom
+        current.present(vc, animated: true, completion: nil)
     }
+    
+//    public override func deleteItems(at indexPaths: [IndexPath]) {        
+//        super.deleteItems(at: indexPaths)
+//    }
 }
 
 extension MMCollectionView: UICollectionViewDelegate {
@@ -106,7 +99,7 @@ extension MMCollectionView: UICollectionViewDelegate {
             }
             c.isHidden = false
         }
-//        _proxyDelegate._forwardToDelegate
+        _proxyDelegate.forwardDelegate?.collectionView?(collectionView, willDisplay: cell, forItemAt: indexPath)
     }
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView.collectionViewLayout {
@@ -115,6 +108,27 @@ extension MMCollectionView: UICollectionViewDelegate {
         default:
             break
         }
-        _proxyDelegate._forwardToDelegate.collectionView?(collectionView, didSelectItemAt: indexPath)
+        _proxyDelegate.forwardDelegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
+    }
+}
+
+extension MMCollectionView: UIViewControllerTransitioningDelegate {
+    
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .Present
+        if let custom = self.collectionViewLayout as? CustomCardLayout , let path = custom.selectPath {
+
+            transition.cardView = self.cellForItem(at: path)
+            custom.isFullScreen = true
+        }
+        return transition
+    }
+    
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .Dismiss
+        if let custom = self.collectionViewLayout as? CustomCardLayout {
+            custom.isFullScreen = false
+        }
+        return transition
     }
 }

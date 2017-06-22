@@ -38,8 +38,21 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="344" height="146"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CardD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A48-ba-qx6">
+                                                    <rect key="frame" x="12" y="8" width="324" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.1176470588" green="0.70196078429999997" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="A48-ba-qx6" firstAttribute="leading" secondItem="Ucw-01-Yod" secondAttribute="leadingMargin" constant="4" id="RcJ-6B-ufO"/>
+                                            <constraint firstItem="A48-ba-qx6" firstAttribute="top" secondItem="Ucw-01-Yod" secondAttribute="topMargin" id="c6r-uJ-MyJ"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="A48-ba-qx6" secondAttribute="trailing" id="fc4-9R-Wvg"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

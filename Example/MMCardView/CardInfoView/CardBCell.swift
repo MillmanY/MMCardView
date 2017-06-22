@@ -9,14 +9,10 @@
 import UIKit
 import MMCardView
 
-class CardBCell: CardCell,CardCellProtocol {
+class CardBCell: CardCell {
 
     @IBOutlet weak var imgV:UIImageView!
     
-    public static func cellIdentifier() -> String {
-        return "CardB"
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
         imgV.layer.cornerRadius = 8.0

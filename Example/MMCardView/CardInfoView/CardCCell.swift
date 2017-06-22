@@ -8,12 +8,9 @@
 
 import UIKit
 import MMCardView
-class CardCCell: CardCell,CardCellProtocol {
+class CardCCell: CardCell {
     @IBOutlet weak var btnClick:UIButton!
     private var callBack:(()->Void)?
-    public static func cellIdentifier() -> String {
-        return "CardC"
-    }
 
     func clickCallBack(c:@escaping ()->Void) {
         self.callBack = c

@@ -8,42 +8,116 @@
 
 import UIKit
 import MMCardView
-
 class ViewController: UIViewController {
+    var sectionData = [["CardA","CardB","CardC"],["CardB","CardB","CardB"],["CardC"],["CardD"]]
     @IBOutlet weak var cardCollection: MMCollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cardCollection.register(UINib(nibName: "CardACell", bundle: nil), forCellWithReuseIdentifier: "CardA")
+        cardCollection.register(UINib(nibName: "CardBCell", bundle: nil), forCellWithReuseIdentifier: "CardB")
+        cardCollection.register(UINib(nibName: "CardCCell", bundle: nil), forCellWithReuseIdentifier: "CardC")
     }
     @IBAction func segmentAction(seg:UISegmentedControl) {
         if (seg.selectedSegmentIndex == 0) {
-            cardCollection.showStyle(style: .cover)
+            (cardCollection.collectionViewLayout as?  CustomCardLayout)?.showStyle = .cover
         } else {
-            cardCollection.showStyle(style: .normal)
+            (cardCollection.collectionViewLayout as?  CustomCardLayout)?.showStyle = .normal
         }
     }
+    
+    @IBAction func filterAction () {
+        let sheet = UIAlertController.init(title: "Filter", message: "Select you want to show in View", preferredStyle: .actionSheet)
+        
+        let removeA = UIAlertAction(title: "Remove A", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+            if self.sectionData[0].count == 0 {
+                return
+            }
+            self.sectionData[0].removeFirst()
+            self.cardCollection.deleteItems(at: [IndexPath.init(row: 0, section: 0)])
+        })
+        
+        let removeB = UIAlertAction(title: "Remove B", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            if self.sectionData[1].count == 0 {
+                return
+            }
 
+            self.sectionData[1].removeFirst()
+            self.cardCollection.deleteItems(at: [IndexPath.init(row: 0, section: 1)])
+        })
+        
+        let removeC = UIAlertAction(title: "Remove C", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            if self.sectionData[2].count == 0 {
+                return
+            }
+
+            self.sectionData[2].removeFirst()
+            self.cardCollection.deleteItems(at: [IndexPath(row: 0, section: 2)])
+        })
+        let appendA = UIAlertAction(title: "Append 2 A items", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.sectionData[0].insert("CardA", at: 0)
+            self.sectionData[0].insert("CardA", at: 0)
+
+            self.cardCollection.insertItems(at: [IndexPath(row: 0, section:0),
+                                                 IndexPath(row: 1, section:0)])
+        })
+        
+        let appendB = UIAlertAction(title: "Append B", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.sectionData[1].insert("CardB", at: 0)
+            self.cardCollection.insertItems(at: [IndexPath.init(row: 0, section:1)])
+        })
+        let appendC = UIAlertAction(title: "Append C", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.sectionData[2].insert("CardC", at: 0)
+            self.cardCollection.insertItems(at: [IndexPath.init(row: 0, section:2)])
+        })
+        
+        sheet.addAction(removeA)
+        sheet.addAction(removeB)
+        sheet.addAction(removeC)
+        sheet.addAction(appendA)
+        sheet.addAction(appendB)
+        sheet.addAction(appendC)
+        self.present(sheet, animated: true, completion: nil)
+    }
 }
 
 extension ViewController: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return sectionData.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return 3
-        case 2:
-            return 20
-        default:
-            return 0
-        }
+        return sectionData[section].count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "CardD", for: indexPath)
+
+        let idenTifier = sectionData[indexPath.section][indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: idenTifier, for: indexPath)
+        switch cell {
+        case let c as CardCCell:
+            
+            c.clickCallBack {
+                if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Second") as? SecondViewController {
+                    vc.delegate = self
+//                    (self.cardCollection.collectionViewLayout as? CustomCardLayout)?.isFullScreen = true
+                    self.cardCollection.presentViewController(to: vc)
+                }
+            }
+        case let c as CardBCell:
+            c.imgV.image = #imageLiteral(resourceName: "image1")
+        default:
+            break
+        }
+        
+        return cell
     }
 }
 
@@ -53,132 +127,14 @@ extension ViewController: UICollectionViewDelegate {
     }
 }
 
-//extension ViewController: UICollectionViewDelegate {
-//    
-//}
-//class ViewController: UIViewController,CardCollectionViewDataSource {
-//    
-//    @IBOutlet weak var card:CardView!
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        card.registerCardCell(c: CardACell.classForCoder(), nib: UINib.init(nibName: "CardACell", bundle: nil))
-//        card.registerCardCell(c: CardBCell.classForCoder(), nib: UINib.init(nibName: "CardBCell", bundle: nil))
-//        card.registerCardCell(c: CardCCell.classForCoder(), nib: UINib.init(nibName: "CardCCell", bundle: nil))
-//        card.cardDataSource = self
-//        let arr = self.generateCardInfo(cardCount: 10)
-//        card.set(cards: arr)
-//        
-//        self.card.showStyle(style: .cover)
-//        
-//
-//        // Do any additional setup after loading the view, typically from a nib.
-//    }
-//    
-//    func generateCardInfo (cardCount:Int) -> [AnyObject] {
-//        var arr = [AnyObject]()
-//        let xibName = ["CardA","CardB","CardC"]
-//        
-//        for _ in 1...cardCount {
-//            let value = Int(arc4random_uniform(3))
-//            arr.append(xibName[value] as AnyObject)
-//        }
-//
-//        return arr
-//    }
-//    
-//    func cardView(collectionView:UICollectionView,item:AnyObject,indexPath:IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item as! String, for: indexPath )
-//        switch cell {
-//            case let c as CardACell:
-//                c.txtView.text = "Hello This is MMCardView ,Its a demo with different Card Type,This is a text type"
-//            case let c as CardBCell:
-//                let v = Int(arc4random_uniform(5))+1
-//                c.imgV.image = UIImage.init(named: "image\(v)")            
-//            case let c as CardCCell:
-//                c.clickCallBack {
-//                    if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Second") as? SecondViewController {
-//                        vc.delegate = self
-//                        self.card.presentViewController(to: vc)
-//                    }
-//                }
-//            default:
-//                return UICollectionViewCell()
-//
-//        }
-//        return cell
-//    }
-//    
-//    @IBAction func segmentAction(seg:UISegmentedControl) {
-//        if (seg.selectedSegmentIndex == 0) {
-//            self.card.showStyle(style: .cover)
-//        } else {
-//            self.card.showStyle(style: .normal)
-//        }
-//    }
-//    
-//    @IBAction func filterAction () {
-//        let sheet = UIAlertController.init(title: "Filter", message: "Select you want to show in View", preferredStyle: .actionSheet)
-//
-//        let cellA = UIAlertAction(title: "CellA", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            self.card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
-//                return (obj as! String) == "CardA"
-//            })
-//        })
-//        
-//        let cellB = UIAlertAction(title: "CellB", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            
-//            self.card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
-//                return (obj as! String) == "CardB"
-//            })
-//        })
-//        
-//        let cellC = UIAlertAction(title: "CellC", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            self.card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
-//                return (obj as! String) == "CardC"
-//            })
-//        })
-//        let ac = ["CardA","CardC"]
-//        let cellAC = UIAlertAction(title: "CellA,CellC", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            
-//            
-//            self.card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
-//                return ac.contains(obj as! String)
-//            })
-//        })
-//        
-//        let allCell = UIAlertAction(title: "CellAll", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//           self.card.showAllData()
-//        })
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//        })
-//                
-//        sheet.addAction(cellA)
-//        sheet.addAction(cellB)
-//        sheet.addAction(cellC)
-//        sheet.addAction(cellAC)
-//
-//        sheet.addAction(allCell)
-//        sheet.addAction(cancelAction)
-//        self.present(sheet, animated: true, completion: nil)
-//    }
-//    
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//        // Dispose of any resources that can be recreated.
-//    }
-//
-//}
-//
-//extension ViewController:SecondViewProtocol {
-//    func removeCard() {
+extension ViewController:SecondViewProtocol {
+    func removeCard() {
+        
+        if let layout = self.cardCollection.collectionViewLayout as? CustomCardLayout , let path = layout.selectPath {
+            sectionData[path.section].remove(at: path.row)
+            cardCollection.deleteItems(at: [path])
+        }
 //       card.removeSelectCard()
-//    }
-//}
+    }
+}
 

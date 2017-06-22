@@ -9,14 +9,10 @@
 import UIKit
 import MMCardView
 
-class CardACell: CardCell,CardCellProtocol {
+class CardACell: CardCell {
     @IBOutlet weak var labTitle:UILabel!
     @IBOutlet weak var txtView:UITextView!
     
-    public static func cellIdentifier() -> String {
-        return "CardA"
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -15,8 +15,32 @@ public enum SequenceStyle:Int {
     case cover
 }
 
+class CollectCalculate {
+    var sections:Int = 0
+    var sectionItemsCount = [Int:Int]()
+    var totalCount = 0
+    func update(collect: UICollectionView) -> Bool {
+        var isUpdate = false
+        totalCount = 0
+        if self.sections != collect.numberOfSections {
+            self.sections = collect.numberOfSections
+            sectionItemsCount.removeAll()
+        }
+        (0..<sections).forEach {
+            let count = collect.numberOfItems(inSection: $0)
+            if count != sectionItemsCount[$0] {
+                sectionItemsCount[$0] = count
+                isUpdate = true
+            }
+            totalCount += count
+        }
+        return isUpdate
+    }
+}
+
 class CardLayoutAttributes: UICollectionViewLayoutAttributes {
     var isExpand = false
+
     override func copy(with zone: NSZone? = nil) -> Any {
         let attribute = super.copy(with: zone) as! CardLayoutAttributes
         attribute.isExpand = isExpand
@@ -24,28 +48,26 @@ class CardLayoutAttributes: UICollectionViewLayoutAttributes {
     }
 }
 
-class CustomCardLayout: UICollectionViewLayout {
+public class CustomCardLayout: UICollectionViewLayout {
     fileprivate var insertPath = [IndexPath]()
     fileprivate var deletePath = [IndexPath]()
     fileprivate var attributeList = [CardLayoutAttributes]()
-    
-    var showStyle:SequenceStyle = .normal {
+    fileprivate var collectCalculate = CollectCalculate()
+    public var showStyle:SequenceStyle = .cover {
         didSet {
             self.collectionView?.performBatchUpdates({
                 self.invalidateLayout()
             }, completion: nil)
         }
     }
-    fileprivate var _selectPath: IndexPath?
+    fileprivate var _selectPath: IndexPath? {
+        didSet {
+            self.collectionView!.isScrollEnabled = (_selectPath == nil)
+        }
+    }
     public var selectPath: IndexPath? {
         set {
-            if _selectPath == newValue {
-                self.collectionView!.isScrollEnabled = true
-                _selectPath = nil
-            } else {
-                self.collectionView!.isScrollEnabled = false
-                _selectPath = newValue
-            }
+            _selectPath = (_selectPath == newValue) ? nil : newValue
             self.collectionView?.performBatchUpdates({
                 self.invalidateLayout()
             }, completion: nil)
@@ -54,7 +76,7 @@ class CustomCardLayout: UICollectionViewLayout {
         }
     }
     
-    var bottomShowCount = 6 {
+    public var bottomShowCount = 6 {
         didSet {
             self.collectionView?.performBatchUpdates({
                 self.collectionView?.reloadData()
@@ -62,7 +84,7 @@ class CustomCardLayout: UICollectionViewLayout {
         }
     }
     
-    var isFullScreen = false {
+    public var isFullScreen = false {
         didSet {
             self.collectionView?.performBatchUpdates({
                 self.collectionView?.reloadData()
@@ -70,7 +92,7 @@ class CustomCardLayout: UICollectionViewLayout {
         }
     }
     
-    var titleHeight:CGFloat = 56.0 {
+    public var titleHeight:CGFloat = 56 {
         didSet {
             self.collectionView?.performBatchUpdates({ 
                 self.invalidateLayout()
@@ -85,7 +107,7 @@ class CustomCardLayout: UICollectionViewLayout {
         return size
     }()
 
-    override var collectionViewContentSize: CGSize {
+    override public var collectionViewContentSize: CGSize {
         set {}
         get {
             let sections = self.collectionView!.numberOfSections
@@ -102,10 +124,12 @@ class CustomCardLayout: UICollectionViewLayout {
         self.cellSize.height = self.collectionView!.bounds.height * BottomPercent
     }
     
-    override func prepare() {
+    override public func prepare() {
         super.prepare()
-
-        if let select = self.selectPath {
+        let update = collectCalculate.update(collect: self.collectionView!)
+    
+        if let select = self.selectPath , !update {
+            
             var bottomIdx:CGFloat = 0
             self.attributeList.forEach({
                 if $0.indexPath == select {
@@ -115,8 +139,18 @@ class CustomCardLayout: UICollectionViewLayout {
                 }
             })
         } else {
-            self.attributeList.removeAll()
-            self.attributeList += self.generateAttributeList()
+            _selectPath = nil
+            if !update && collectCalculate.totalCount == self.attributeList.count {
+                attributeList.forEach({ [unowned self] in
+                    self.setNoSelect(attribute: $0)
+                })
+                return
+            }
+            let list = self.generateAttributeList()
+            if list.count > 0 {
+                self.attributeList.removeAll()
+                self.attributeList += list
+            }
         }
     }
     
@@ -131,7 +165,7 @@ class CustomCardLayout: UICollectionViewLayout {
         for sec in 0..<sections {
             let count = self.collectionView!.numberOfItems(inSection: sec)
             if itemsIdx + count-1 < startIdx {
-                itemsIdx = count-1
+                itemsIdx += count
                 continue
             }
             for item in 0..<count {
@@ -139,12 +173,7 @@ class CustomCardLayout: UICollectionViewLayout {
                     let indexPath = IndexPath(item: item, section: sec)
                     let attr = CardLayoutAttributes(forCellWith: indexPath)
                     attr.zIndex = itemsIdx
-                    self.setNoSelect(attribute: attr, realIdx: itemsIdx)
-                    let needAppend = CGFloat(arr.count-1) * titleHeight < collectionView!.frame.height
-                    if !needAppend {
-                        return arr
-                    }
-                    attr.isHidden = false
+                    self.setNoSelect(attribute: attr)
                     arr.append(attr)
                 }
                 itemsIdx += 1
@@ -153,17 +182,22 @@ class CustomCardLayout: UICollectionViewLayout {
         return arr
     }
     
-    fileprivate func setNoSelect(attribute:CardLayoutAttributes, realIdx: Int) {
-        
+    fileprivate func setNoSelect(attribute:CardLayoutAttributes) {
+
         let shitIdx = Int(self.collectionView!.contentOffset.y/titleHeight)
-        let index = realIdx
+        if shitIdx < 0 {
+            return
+        }
+        attribute.isExpand = false
+        let index = attribute.zIndex
         var currentFrame = CGRect.zero
         currentFrame = CGRect(x: self.collectionView!.frame.origin.x, y: titleHeight * CGFloat(index), width: cellSize.width, height: cellSize.height)
         switch showStyle {
             case .cover:
-                if index <= shitIdx && (index >= shitIdx-2) || index == 0{
+                
+                if index <= shitIdx && (index >= shitIdx) {
                     attribute.frame = CGRect(x: currentFrame.origin.x, y: self.collectionView!.contentOffset.y, width: cellSize.width, height: cellSize.height)
-                } else if index <= shitIdx-2 && currentFrame.maxY > self.collectionView!.contentOffset.y{
+                } else if index <= shitIdx && currentFrame.maxY > self.collectionView!.contentOffset.y{
                     currentFrame.origin.y -= (currentFrame.maxY - self.collectionView!.contentOffset.y )
                     attribute.frame = currentFrame
                 }else {
@@ -186,54 +220,60 @@ class CustomCardLayout: UICollectionViewLayout {
         let margin:CGFloat = bottomH/CGFloat(bottomShowCount)
         attribute.isExpand = false
         let yPos = (self.isFullScreen) ? (self.collectionView!.contentOffset.y + collectionView!.bounds.height) : bottomIdx * margin + baseHeight
-        attribute.frame = CGRect.init(x: 0, y: yPos, width: cellSize.width, height: cellSize.height)
+        attribute.frame = CGRect(x: 0, y: yPos, width: cellSize.width, height: cellSize.height)
         bottomIdx += 1
     }
     
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return attributeList.first(where: { $0.indexPath == indexPath })
+    override public func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        
+        guard let first = attributeList.first(where: { $0.indexPath == indexPath }) else {
+            let attr = CardLayoutAttributes(forCellWith: indexPath)
+            return attr
+        }
+        return first
     }
 
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let arr =  attributeList.filter { (layout) -> Bool in
-            return layout.frame.intersects(rect)
-        }
+    override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        var reset = rect
+        reset.origin.y = self.collectionView!.contentOffset.y
         
+        let arr =  attributeList.filter {
+            var fix = $0.frame
+            fix.size.height = titleHeight
+            return fix.intersects(reset)
+        }
         return arr
     }
     
-    override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        
-
-        let at = (itemIndexPath.row > attributeList.count-1) ? super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) :attributeList[itemIndexPath.row]
+    override public func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let at = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath)
         if self.deletePath.contains(itemIndexPath) {
+            if let original = attributeList.first(where: { $0.indexPath == itemIndexPath }) {
+                at?.frame = original.frame
+            }
             let randomLoc = (itemIndexPath.row%2 == 0) ? 1 : -1
             let x = self.collectionView!.frame.width * CGFloat(randomLoc)
-            
-            at?.transform = CGAffineTransform.init(translationX: x, y: 0)
+            at?.transform = CGAffineTransform(translationX: x, y: 0)
         }
         
         return at
     }
-
-    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
     
-        let at = (itemIndexPath.row > attributeList.count-1) ? super.initialLayoutAttributesForAppearingItem(at: itemIndexPath) :attributeList[itemIndexPath.row]
+    override public func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let at = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
         if self.insertPath.contains(itemIndexPath) {
             let randomLoc = (itemIndexPath.row%2 == 0) ? 1 : -1
-            let x = self.collectionView!.frame.width * CGFloat(randomLoc)
-            
-            at?.transform = CGAffineTransform.init(translationX: x, y: 0)
+            let x = self.collectionView!.frame.width * CGFloat(-randomLoc)
+            at?.transform = CGAffineTransform(translationX: x, y: 0)
         }
-        
         return at
     }
     
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    override public func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
 
-    override func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
+    override public func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
         deletePath.removeAll()
         insertPath.removeAll()
@@ -249,5 +289,19 @@ class CustomCardLayout: UICollectionViewLayout {
             }
         }
     }
-
+    
+    override public func finalizeCollectionViewUpdates() {
+        super.finalizeCollectionViewUpdates()
+        if deletePath.count > 0 || insertPath.count > 0 {
+            deletePath.removeAll()
+            insertPath.removeAll()
+            let vi = self.collectionView!.subviews.sorted {
+                return $0.0.layer.zPosition < $0.1.layer.zPosition
+            }
+            vi.forEach({ (vi) in
+                collectionView?.addSubview(vi)
+            })
+            
+        }
+    }
 }
