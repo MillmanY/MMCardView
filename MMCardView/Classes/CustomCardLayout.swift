@@ -100,6 +100,17 @@ public class CustomCardLayout: UICollectionViewLayout {
         }
     }
     
+    public var cardHeight: CGFloat = 320 {
+        didSet {
+            var c = self.cellSize
+            c.height = cardHeight
+            self.cellSize = c
+            self.collectionView?.performBatchUpdates({ 
+                self.invalidateLayout()
+            }, completion: nil)
+        }
+    }
+    
     lazy var cellSize:CGSize = {
         let w = self.collectionView!.bounds.width
         let h = self.collectionView!.bounds.height * BottomPercent
@@ -121,7 +132,7 @@ public class CustomCardLayout: UICollectionViewLayout {
     
      func updateCellSize() {
         self.cellSize.width  = self.collectionView!.frame.width
-        self.cellSize.height = self.collectionView!.bounds.height * BottomPercent
+        self.cellSize.height = cardHeight * BottomPercent
     }
     
     override public func prepare() {
@@ -217,7 +228,7 @@ public class CustomCardLayout: UICollectionViewLayout {
     fileprivate func setBottom(attribute:CardLayoutAttributes, bottomIdx:inout CGFloat) {
         let baseHeight = self.collectionView!.contentOffset.y + collectionView!.bounds.height * 0.90
         let bottomH = cellSize.height  * 0.1
-        let margin:CGFloat = bottomH/CGFloat(bottomShowCount)
+        let margin:CGFloat = bottomH/CGFloat(bottomShowCount-1)
         attribute.isExpand = false
         let yPos = (self.isFullScreen) ? (self.collectionView!.contentOffset.y + collectionView!.bounds.height) : bottomIdx * margin + baseHeight
         attribute.frame = CGRect(x: 0, y: yPos, width: cellSize.width, height: cellSize.height)

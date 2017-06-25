@@ -17,6 +17,13 @@ class ViewController: UIViewController {
         cardCollection.register(UINib(nibName: "CardACell", bundle: nil), forCellWithReuseIdentifier: "CardA")
         cardCollection.register(UINib(nibName: "CardBCell", bundle: nil), forCellWithReuseIdentifier: "CardB")
         cardCollection.register(UINib(nibName: "CardCCell", bundle: nil), forCellWithReuseIdentifier: "CardC")
+        
+        if let layout = cardCollection.collectionViewLayout as? CustomCardLayout {
+            layout.titleHeight = 100.0
+            layout.bottomShowCount = 3
+            layout.cardHeight = 300
+            layout.showStyle = .cover
+        }
     }
     @IBAction func segmentAction(seg:UISegmentedControl) {
         if (seg.selectedSegmentIndex == 0) {
