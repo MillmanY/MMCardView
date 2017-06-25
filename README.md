@@ -20,65 +20,23 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     Xcode 8.0+
     Swift 3.0+
 ## Use
-1.Register your CollectionView Cell and Datasource
-    
-    card.cardDataSource = self
-    card.registerCardCell(c: CardACell.classForCoder(), nib: UINib.init(nibName: "CardACell", bundle: nil))
-2.Set your data use
-
-    card.set(cards: arr)
-    
-3.Create your Cell inherit "CardCell" and implement "CardCellProtocol"
-
-    class CardACell: CardCell,CardCellProtocol {
+1.Inherit your collectionView to MMCollectionView
        
-       // Set your Cell Identifier
-       public static func cellIdentifier() -> String {
-            return "CardA"
-        }
-    }
-4.Handle Datasource
+    @IBOutlet weak var cardCollection: MMCollectionView!
     
-    item : What you put in Step 2
-  
-    func cardView(collectionView:UICollectionView,item:AnyObject,indexPath:IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item as! String, for: indexPath )
-        return cell
+2.Create your Cell inherit "CardCell"
+
+    class CardACell: CardCell {
+
     }
-    
-## Style
+## Other         
 
-     public enum SequenceStyle:Int {
-       case normal
-       case cover
-     }
-## Filter
-1.Hide you dont want to show use function
-
-    card.filterAllDataWith(isInclued: { (idex, obj) -> Bool in
-         return (obj as! String) == "CardA"
-    })
-2.Show All Data
-
-    card.showAllData()
-## Other
-
-1.BottomCount when Expand
-
-    card.expandBottomCount(count:Int)
-2.Flip ViewController
-
-    card.presentViewController(to: vc)
-3.Set show height for every cell (Default is 56.0)
-
-    card.setCardTitleHeight(heihgt: 56)
-4.Set Card Height (Defualt is Screen 85%)
-
-    card.setCardHeight(height:100)
-5.Remove Card
-
-    card.removeCard(at index:0)
-    card.removeSelectCard()  
+    if let layout = cardCollection.collectionViewLayout as? CustomCardLayout {
+         layout.titleHeight = 100.0
+         layout.bottomShowCount = 3
+         layout.cardHeight = 300
+         layout.showStyle = .cover
+    }
 ## Installation
 
 MMCardView is available through [CocoaPods](http://cocoapods.org). To install
