@@ -61,15 +61,7 @@ public class MMCollectionView: UICollectionView {
             }
         }
     }
-    
-    public func setCardHeight(height:CGFloat) {
-        DispatchQueue.main.async {
-            if let layout = self.collectionViewLayout as? CustomCardLayout {
-                layout.cellSize = CGSize.init(width: layout.cellSize.width, height: height)
-                layout.invalidateLayout()
-            }
-        }
-    }
+
     public func presentViewController(to vc:UIViewController) {
 
         if (self.collectionViewLayout as? CustomCardLayout)?.selectPath == nil {
