@@ -119,7 +119,7 @@ public class CustomCardLayout: UICollectionViewLayout {
         }
     }
     
-    func updateCellSize() {
+     func updateCellSize() {
         self.cellSize.width  = self.collectionView!.frame.width
         self.cellSize.height = self.collectionView!.bounds.height * BottomPercent
     }

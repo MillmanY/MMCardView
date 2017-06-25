@@ -82,10 +82,6 @@ public class MMCollectionView: UICollectionView {
         vc.modalPresentationStyle = .custom
         current.present(vc, animated: true, completion: nil)
     }
-    
-//    public override func deleteItems(at indexPaths: [IndexPath]) {        
-//        super.deleteItems(at: indexPaths)
-//    }
 }
 
 extension MMCollectionView: UICollectionViewDelegate {
