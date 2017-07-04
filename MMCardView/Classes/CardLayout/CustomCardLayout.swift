@@ -15,29 +15,6 @@ public enum SequenceStyle:Int {
     case cover
 }
 
-class CollectCalculate {
-    var sections:Int = 0
-    var sectionItemsCount = [Int:Int]()
-    var totalCount = 0
-    func update(collect: UICollectionView) -> Bool {
-        var isUpdate = false
-        totalCount = 0
-        if self.sections != collect.numberOfSections {
-            self.sections = collect.numberOfSections
-            sectionItemsCount.removeAll()
-        }
-        (0..<sections).forEach {
-            let count = collect.numberOfItems(inSection: $0)
-            if count != sectionItemsCount[$0] {
-                sectionItemsCount[$0] = count
-                isUpdate = true
-            }
-            totalCount += count
-        }
-        return isUpdate
-    }
-}
-
 class CardLayoutAttributes: UICollectionViewLayoutAttributes {
     var isExpand = false
 
@@ -52,7 +29,6 @@ public class CustomCardLayout: UICollectionViewLayout {
     fileprivate var insertPath = [IndexPath]()
     fileprivate var deletePath = [IndexPath]()
     fileprivate var attributeList = [CardLayoutAttributes]()
-    fileprivate var collectCalculate = CollectCalculate()
     public var showStyle:SequenceStyle = .cover {
         didSet {
             self.collectionView?.performBatchUpdates({
@@ -137,7 +113,7 @@ public class CustomCardLayout: UICollectionViewLayout {
     
     override public func prepare() {
         super.prepare()
-        let update = collectCalculate.update(collect: self.collectionView!)
+        let update = self.collectionView!.calculate.isNeedUpdate()
     
         if let select = self.selectPath , !update {
             
@@ -151,7 +127,7 @@ public class CustomCardLayout: UICollectionViewLayout {
             })
         } else {
             _selectPath = nil
-            if !update && collectCalculate.totalCount == self.attributeList.count {
+            if !update && self.collectionView!.calculate.totalCount == self.attributeList.count {
                 attributeList.forEach({ [unowned self] in
                     self.setNoSelect(attribute: $0)
                 })

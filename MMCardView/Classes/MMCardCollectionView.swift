@@ -9,6 +9,7 @@
 import UIKit
 public enum LayoutStyle {
     case card
+    case banner
 }
 
 public class MMCollectionView: UICollectionView {
@@ -21,6 +22,8 @@ public class MMCollectionView: UICollectionView {
             switch layoutStyle {
             case .card:
                 self.collectionViewLayout = CustomCardLayout()
+            case .banner:
+                self.collectionViewLayout = BannerLayout()
             }
         }
     }
@@ -45,7 +48,15 @@ public class MMCollectionView: UICollectionView {
     }
     
     func setup() {
-        self.layoutStyle = .card
+
+        switch self.collectionViewLayout {
+        case _ as CustomCardLayout:
+            self.layoutStyle = .card
+        case _ as BannerLayout:
+            self.layoutStyle = .banner
+        default:
+            self.layoutStyle = .card
+        }
     }
     
     override public var bounds: CGRect {

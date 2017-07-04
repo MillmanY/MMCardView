@@ -11,9 +11,11 @@ import MMCardView
 class ViewController: UIViewController {
     var sectionData = [["CardA","CardB","CardC"],["CardB","CardB","CardB"],["CardC"],["CardD"]]
     @IBOutlet weak var cardCollection: MMCollectionView!
+    @IBOutlet weak var banner:MMCollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//       (banner.collectionViewLayout as? BannerLayout)?.autoPlayBanner = true
+        (banner.collectionViewLayout as? BannerLayout)?.isInfinite = true
         cardCollection.register(UINib(nibName: "CardACell", bundle: nil), forCellWithReuseIdentifier: "CardA")
         cardCollection.register(UINib(nibName: "CardBCell", bundle: nil), forCellWithReuseIdentifier: "CardB")
         cardCollection.register(UINib(nibName: "CardCCell", bundle: nil), forCellWithReuseIdentifier: "CardC")
@@ -103,9 +105,28 @@ extension ViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sectionData[section].count
     }
-
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == banner {
+            return self.banner(collectionView: collectionView, cellForItemAt: indexPath)
+        } else if collectionView == cardCollection {
+            return self.card(collectionView: collectionView, cellForItemAt: indexPath)
+        }
+        return UICollectionViewCell()
+    }
+    
+    
+    fileprivate func banner(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BannerViewCell", for: indexPath)
 
+        if indexPath.section == 0 && indexPath.row == 0{
+            (cell as? BannerViewCell)?.imgView.image = #imageLiteral(resourceName: "image1")
+        } else {
+            (cell as? BannerViewCell)?.imgView.image = #imageLiteral(resourceName: "image4")
+        }
+        return cell
+    }
+    
+    fileprivate func card(collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let idenTifier = sectionData[indexPath.section][indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: idenTifier, for: indexPath)
         switch cell {
@@ -114,7 +135,7 @@ extension ViewController: UICollectionViewDataSource {
             c.clickCallBack {
                 if let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Second") as? SecondViewController {
                     vc.delegate = self
-//                    (self.cardCollection.collectionViewLayout as? CustomCardLayout)?.isFullScreen = true
+                    //                    (self.cardCollection.collectionViewLayout as? CustomCardLayout)?.isFullScreen = true
                     self.cardCollection.presentViewController(to: vc)
                 }
             }
@@ -123,7 +144,6 @@ extension ViewController: UICollectionViewDataSource {
         default:
             break
         }
-        
         return cell
     }
 }

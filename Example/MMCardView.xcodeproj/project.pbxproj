@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		271A63981D924D4200E326CC /* CardACell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271A63961D924D4200E326CC /* CardACell.swift */; };
-		271A63991D924D4200E326CC /* CardACell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271A63971D924D4200E326CC /* CardACell.xib */; };
-		271A639C1D924D4E00E326CC /* CardBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271A639A1D924D4E00E326CC /* CardBCell.swift */; };
-		271A639D1D924D4E00E326CC /* CardBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271A639B1D924D4E00E326CC /* CardBCell.xib */; };
-		271A63A01D924D5A00E326CC /* CardCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271A639E1D924D5A00E326CC /* CardCCell.swift */; };
-		271A63A11D924D5A00E326CC /* CardCCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271A639F1D924D5A00E326CC /* CardCCell.xib */; };
 		27719F5E1D92D06800D6C1D5 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27719F5D1D92D06800D6C1D5 /* SecondViewController.swift */; };
-		5E1E90E31EFA816B00C7155C /* CardDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E90E21EFA816B00C7155C /* CardDCell.swift */; };
+		5EF2176D1F0BC3B300BBF880 /* CardACell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF217661F0BC3B300BBF880 /* CardACell.swift */; };
+		5EF2176E1F0BC3B300BBF880 /* CardACell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF217671F0BC3B300BBF880 /* CardACell.xib */; };
+		5EF2176F1F0BC3B300BBF880 /* CardBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF217681F0BC3B300BBF880 /* CardBCell.swift */; };
+		5EF217701F0BC3B300BBF880 /* CardBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF217691F0BC3B300BBF880 /* CardBCell.xib */; };
+		5EF217711F0BC3B300BBF880 /* CardCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2176A1F0BC3B300BBF880 /* CardCCell.swift */; };
+		5EF217721F0BC3B300BBF880 /* CardCCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF2176B1F0BC3B300BBF880 /* CardCCell.xib */; };
+		5EF217731F0BC3B300BBF880 /* CardDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2176C1F0BC3B300BBF880 /* CardDCell.swift */; };
+		5EF217751F0BC3C000BBF880 /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF217741F0BC3C000BBF880 /* BannerViewCell.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -35,16 +36,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		271A63961D924D4200E326CC /* CardACell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardACell.swift; sourceTree = "<group>"; };
-		271A63971D924D4200E326CC /* CardACell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardACell.xib; sourceTree = "<group>"; };
-		271A639A1D924D4E00E326CC /* CardBCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardBCell.swift; sourceTree = "<group>"; };
-		271A639B1D924D4E00E326CC /* CardBCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardBCell.xib; sourceTree = "<group>"; };
-		271A639E1D924D5A00E326CC /* CardCCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCCell.swift; sourceTree = "<group>"; };
-		271A639F1D924D5A00E326CC /* CardCCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardCCell.xib; sourceTree = "<group>"; };
 		27719F5D1D92D06800D6C1D5 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		3F0383F29FAC3DF303AEF2F5 /* Pods_MMCardView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MMCardView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51F9A86199137A318F69A8DF /* Pods_MMCardView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MMCardView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E1E90E21EFA816B00C7155C /* CardDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDCell.swift; sourceTree = "<group>"; };
+		5EF217661F0BC3B300BBF880 /* CardACell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardACell.swift; sourceTree = "<group>"; };
+		5EF217671F0BC3B300BBF880 /* CardACell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardACell.xib; sourceTree = "<group>"; };
+		5EF217681F0BC3B300BBF880 /* CardBCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardBCell.swift; sourceTree = "<group>"; };
+		5EF217691F0BC3B300BBF880 /* CardBCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardBCell.xib; sourceTree = "<group>"; };
+		5EF2176A1F0BC3B300BBF880 /* CardCCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCCell.swift; sourceTree = "<group>"; };
+		5EF2176B1F0BC3B300BBF880 /* CardCCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardCCell.xib; sourceTree = "<group>"; };
+		5EF2176C1F0BC3B300BBF880 /* CardDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDCell.swift; sourceTree = "<group>"; };
+		5EF217741F0BC3C000BBF880 /* BannerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* MMCardView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMCardView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,18 +83,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		271A63891D923ADA00E326CC /* CardInfoView */ = {
+		5EF217641F0BC3B300BBF880 /* BannerCell */ = {
 			isa = PBXGroup;
 			children = (
-				271A63961D924D4200E326CC /* CardACell.swift */,
-				271A63971D924D4200E326CC /* CardACell.xib */,
-				271A639A1D924D4E00E326CC /* CardBCell.swift */,
-				271A639B1D924D4E00E326CC /* CardBCell.xib */,
-				271A639E1D924D5A00E326CC /* CardCCell.swift */,
-				271A639F1D924D5A00E326CC /* CardCCell.xib */,
-				5E1E90E21EFA816B00C7155C /* CardDCell.swift */,
+				5EF217741F0BC3C000BBF880 /* BannerViewCell.swift */,
 			);
-			path = CardInfoView;
+			path = BannerCell;
+			sourceTree = "<group>";
+		};
+		5EF217651F0BC3B300BBF880 /* CardCell */ = {
+			isa = PBXGroup;
+			children = (
+				5EF217661F0BC3B300BBF880 /* CardACell.swift */,
+				5EF217671F0BC3B300BBF880 /* CardACell.xib */,
+				5EF217681F0BC3B300BBF880 /* CardBCell.swift */,
+				5EF217691F0BC3B300BBF880 /* CardBCell.xib */,
+				5EF2176A1F0BC3B300BBF880 /* CardCCell.swift */,
+				5EF2176B1F0BC3B300BBF880 /* CardCCell.xib */,
+				5EF2176C1F0BC3B300BBF880 /* CardDCell.swift */,
+			);
+			path = CardCell;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -119,7 +129,8 @@
 		607FACD21AFB9204008FA782 /* Example for MMCardView */ = {
 			isa = PBXGroup;
 			children = (
-				271A63891D923ADA00E326CC /* CardInfoView */,
+				5EF217641F0BC3B300BBF880 /* BannerCell */,
+				5EF217651F0BC3B300BBF880 /* CardCell */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				27719F5D1D92D06800D6C1D5 /* SecondViewController.swift */,
@@ -274,11 +285,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
-				271A63991D924D4200E326CC /* CardACell.xib in Resources */,
+				5EF2176E1F0BC3B300BBF880 /* CardACell.xib in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				271A639D1D924D4E00E326CC /* CardBCell.xib in Resources */,
+				5EF217701F0BC3B300BBF880 /* CardBCell.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-				271A63A11D924D5A00E326CC /* CardCCell.xib in Resources */,
+				5EF217721F0BC3B300BBF880 /* CardCCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,13 +355,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EF217751F0BC3C000BBF880 /* BannerViewCell.swift in Sources */,
 				27719F5E1D92D06800D6C1D5 /* SecondViewController.swift in Sources */,
+				5EF217711F0BC3B300BBF880 /* CardCCell.swift in Sources */,
+				5EF2176D1F0BC3B300BBF880 /* CardACell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
-				271A63981D924D4200E326CC /* CardACell.swift in Sources */,
-				271A639C1D924D4E00E326CC /* CardBCell.swift in Sources */,
+				5EF2176F1F0BC3B300BBF880 /* CardBCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				271A63A01D924D5A00E326CC /* CardCCell.swift in Sources */,
-				5E1E90E31EFA816B00C7155C /* CardDCell.swift in Sources */,
+				5EF217731F0BC3B300BBF880 /* CardDCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
