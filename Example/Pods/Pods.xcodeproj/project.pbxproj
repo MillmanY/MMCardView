@@ -15,6 +15,8 @@
 		5EAE6F1C1F0B36C000FD8DA2 /* CustomFlipTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F191F0B36C000FD8DA2 /* CustomFlipTransition.swift */; };
 		5EAE6F241F0B527C00FD8DA2 /* BannerLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F231F0B527C00FD8DA2 /* BannerLayout.swift */; };
 		5EAE6F281F0B54A900FD8DA2 /* CollectionViewCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F271F0B54A900FD8DA2 /* CollectionViewCalculate.swift */; };
+		5EF217791F0DD90100BBF880 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF217781F0DD90100BBF880 /* CGPoint+Distance.swift */; };
+		5EF2177B1F0E431500BBF880 /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2177A1F0E431500BBF880 /* Array+Safe.swift */; };
 		623C34B36CA06687721E079776CD56E6 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD778B74F2FDFF59F0785F1E660241AF /* UIViewExtension.swift */; };
 		651DA3DC412008253BD3900C927E4BD5 /* Pods-MMCardView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 76C8079BE073931498BC538E93D30B5D /* Pods-MMCardView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		999EA99F23081C914EC9B8B5D33E2C63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
@@ -46,6 +48,8 @@
 		5EAE6F191F0B36C000FD8DA2 /* CustomFlipTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlipTransition.swift; sourceTree = "<group>"; };
 		5EAE6F231F0B527C00FD8DA2 /* BannerLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerLayout.swift; sourceTree = "<group>"; };
 		5EAE6F271F0B54A900FD8DA2 /* CollectionViewCalculate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCalculate.swift; sourceTree = "<group>"; };
+		5EF217781F0DD90100BBF880 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
+		5EF2177A1F0E431500BBF880 /* Array+Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
 		64C8261BDAA5EACB4DF2248EED7DCA72 /* Pods-MMCardView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MMCardView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		76C8079BE073931498BC538E93D30B5D /* Pods-MMCardView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MMCardView_Example-umbrella.h"; sourceTree = "<group>"; };
 		7BB1874B116D7C577F380D11746C06B4 /* Pods-MMCardView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MMCardView_Example.modulemap"; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 				BD778B74F2FDFF59F0785F1E660241AF /* UIViewExtension.swift */,
 				5E0A06DB1EFABB11008B9D10 /* DelegateProxy.swift */,
 				5EAE6F271F0B54A900FD8DA2 /* CollectionViewCalculate.swift */,
+				5EF217781F0DD90100BBF880 /* CGPoint+Distance.swift */,
+				5EF2177A1F0E431500BBF880 /* Array+Safe.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -309,6 +315,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EF2177B1F0E431500BBF880 /* Array+Safe.swift in Sources */,
+				5EF217791F0DD90100BBF880 /* CGPoint+Distance.swift in Sources */,
 				5EAE6F241F0B527C00FD8DA2 /* BannerLayout.swift in Sources */,
 				5E6982CC1EFA77D4008CBD3C /* MMCardCollectionView.swift in Sources */,
 				5EAE6F1B1F0B36C000FD8DA2 /* CustomCardLayout.swift in Sources */,

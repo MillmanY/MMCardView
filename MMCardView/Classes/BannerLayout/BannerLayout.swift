@@ -12,6 +12,16 @@ public enum BannerStyle {
     case normal
 }
 
+class InfiniteLayoutRange {
+    let start:(cycle: Int,index: Int)
+    let end:(cycle:Int, index: Int)
+    
+    init(start: (cycle: Int,index: Int), end: (cycle:Int, index: Int)) {
+        self.start = start
+        self.end = end
+    }
+}
+
 class BannerLayoutAttributes: UICollectionViewLayoutAttributes {
     
     override func copy(with zone: NSZone? = nil) -> Any {
@@ -21,6 +31,17 @@ class BannerLayoutAttributes: UICollectionViewLayoutAttributes {
 }
 
 public class BannerLayout: UICollectionViewLayout {
+    public var itemSpace:CGFloat = 0.0
+    
+    fileprivate var _itemSize:CGSize?
+    public var itemSize: CGSize{
+        set {
+            self._itemSize = newValue
+        } get {
+            return _itemSize ?? self.collectionView!.frame.size
+        }
+    }
+    
     fileprivate var _currentIdx = 0
     public var currentIdx:Int {
         set {
@@ -36,11 +57,13 @@ public class BannerLayout: UICollectionViewLayout {
             return _currentIdx
         }
     }
+    
     public var isInfinite:Bool = false {
         didSet {
             self.invalidateLayout()
         }
     }
+    
     fileprivate var timer: Timer?
     public var autoPlayBanner: Bool = false {
         didSet {
@@ -66,11 +89,37 @@ public class BannerLayout: UICollectionViewLayout {
             return self.totalContentSize(isInfinite: self.isInfinite)
         }
     }
+    fileprivate var indexRange: InfiniteLayoutRange {
+        get {
+            let total = self.collectionView!.calculate.totalCount
+            let width = self.collectionView!.frame.width
+            let one = self.totalContentSize(isInfinite: false)
+            let first = one.width-(width-itemSize.width)/2
+            let another = one.width-(width-itemSize.width)+itemSpace
+            var cycle = 0
+            var start:CGFloat = self.collectionView!.contentOffset.x
+            if self.collectionView!.contentOffset.x > first {
+                cycle = 1 + Int(floor((self.collectionView!.contentOffset.x-first)/another))
+                start = start - (first + CGFloat(cycle-1) * another)
+            }
+            
+            let current = Int(floor( start / (itemSize.width + itemSpace))) > total-1 ? total-1 : Int(floor( start / (itemSize.width + itemSpace)))
+            let end = Int(floor((start + width) / itemSize.width))
+            var endCycle = end / total + cycle
+            var e = end%total
+
+            if !self.isInfinite && endCycle > 0 {
+                endCycle = 0
+                e = total - 1
+            }
+            return InfiniteLayoutRange(start: (cycle, current), end: (endCycle, e))
+        }
+    }
     
     fileprivate func totalContentSize(isInfinite: Bool) -> CGSize {
         switch style {
         case .normal:
-            let width = (isInfinite) ? CGFloat.greatestFiniteMagnitude : CGFloat(self.collectionView!.calculate.totalCount) * self.collectionView!.frame.width
+            let width = (isInfinite) ? CGFloat.greatestFiniteMagnitude : CGFloat(self.collectionView!.calculate.totalCount-1) * (itemSize.width + itemSpace) + self.collectionView!.frame.width
             let height = self.collectionView!.frame.height
             return CGSize(width: width, height: height)
         }
@@ -105,16 +154,32 @@ public class BannerLayout: UICollectionViewLayout {
     }
     
     fileprivate func setAttributeFrame() {
+        if self.collectionView!.contentOffset.x < 0 {
+            return
+        }
         let width = self.collectionView!.frame.width
         let height = self.collectionView!.frame.height
+        
+        let range =  self.indexRange
         let one = self.totalContentSize(isInfinite: false)
-        let cycle = (self.collectionView!.contentOffset.x) / one.width
-        let needShowNext = fmodf(Float(cycle),1.0) >= 0.80
-        let fl = floor(cycle)
-        attributeList.enumerated().forEach {
-            let fix = (needShowNext && $0.offset == 0) ? fl+1 : fl
-            let x = CGFloat($0.offset) * width + (fix * one.width)
-            $0.element.frame = CGRect(x: x, y: 0, width: width, height: height)
+        let first = one.width-(width-itemSize.width)/2
+        let another = one.width-(width-itemSize.width)+itemSpace
+        print(another)
+        print("S\(range.start) E:\(range.end)")
+        (range.start.cycle...range.end.cycle).forEach { (cycle) in
+            let start = cycle == range.start.cycle ? range.start.index : 0
+            let end  = cycle == range.end.cycle ? range.end.index : self.collectionView!.calculate.totalCount - 1
+            var x:CGFloat = 0
+            (start...end).forEach({ (idx) in
+                let location = (itemSize.width+itemSpace)*CGFloat(idx)
+                if cycle == 0 {
+                    x = (idx == 0) ? (width-itemSize.width)/2 : location + (width-itemSize.width)/2
+                } else {
+                    let cycleF = first + CGFloat(cycle-1) * another + itemSpace
+                    x = (idx == 0) ? cycleF : cycleF + location
+                }
+                attributeList[idx].frame = CGRect(x: x, y: (height - itemSize.height)/2, width: itemSize.width, height: itemSize.height)
+            })
         }
     }
     
@@ -143,16 +208,36 @@ public class BannerLayout: UICollectionViewLayout {
         var fix = proposedContentOffset
         switch self.style {
         case .normal:
-        
-            let page = round(proposedContentOffset.x/self.collectionView!.frame.width)
-            if velocity.x == 0 {
-                _currentIdx = Int(page)
+            let centerX = self.collectionView!.contentOffset.x + (self.collectionView!.frame.width/2)
+            var attribute: BannerLayoutAttributes?
+            var preDistance = CGFloat.greatestFiniteMagnitude
+            
+            if velocity.x != 0 {
+                
+                let idx = velocity.x > 0 ? _currentIdx+1 : _currentIdx-1
+                if let attr = self.attributeList[safe: idx] {
+                    fix.x = self.collectionView!.contentOffset.x + attr.frame.midX - centerX
+                    self._currentIdx = idx
+                }
             } else {
-                let append = velocity.x > 0 ? 1 : -1
-                _currentIdx = Int(page) + append
+                var idx = 0
+                attributeList.enumerated().forEach({
+                    let mid = CGPoint(x: $0.element.frame.midX, y: $0.element.frame.midY)
+                    
+                    let distance = mid.distance(point: CGPoint(x: centerX, y: self.collectionView!.contentOffset.y))
+                    
+                    if preDistance > distance {
+                        preDistance = distance
+                        attribute = $0.element
+                        idx = $0.offset
+                    }
+                })
+                if let attr = attribute {
+                    self._currentIdx = idx
+                    fix.x = self.collectionView!.contentOffset.x + attr.frame.midX - centerX
+                }
             }
-            fix.x = (self.collectionView!.frame.width) * CGFloat(self.currentIdx)
-        }
+       }
         
         return fix
     }

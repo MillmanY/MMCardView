@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DelegateProxy: NSObject ,UICollectionViewDelegate {
+class DelegateProxy: NSObject ,UICollectionViewDelegateFlowLayout {
     unowned let parent: AnyObject
     public weak var forwardDelegate: AnyObject?
     public init(parentObject: AnyObject) {
@@ -22,7 +22,6 @@ class DelegateProxy: NSObject ,UICollectionViewDelegate {
         } else if let forward = self.forwardDelegate, forward.responds(to: aSelector){
             return forward
         }
-
         return super.forwardingTarget(for: aSelector)
     }
     

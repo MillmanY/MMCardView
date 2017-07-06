@@ -14,7 +14,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var banner:MMCollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-//       (banner.collectionViewLayout as? BannerLayout)?.autoPlayBanner = true
+        if let layout = banner.collectionViewLayout as? BannerLayout {
+            layout.itemSpace = 5.0
+            layout.itemSize = self.banner!.frame.insetBy(dx: 30, dy: 5).size
+//            layout.itemEdge = UIEdgeInsets(top: 10, left: 2.5, bottom: 2.5, right: 10)
+        }
+        
         (banner.collectionViewLayout as? BannerLayout)?.isInfinite = true
         cardCollection.register(UINib(nibName: "CardACell", bundle: nil), forCellWithReuseIdentifier: "CardA")
         cardCollection.register(UINib(nibName: "CardBCell", bundle: nil), forCellWithReuseIdentifier: "CardB")
@@ -148,7 +153,7 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
-extension ViewController: UICollectionViewDelegate {
+extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
 }

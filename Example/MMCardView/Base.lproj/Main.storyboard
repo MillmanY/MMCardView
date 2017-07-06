@@ -95,7 +95,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="126" id="6hj-RH-Ofd"/>
                                 </constraints>
-                                <collectionViewLayout key="collectionViewLayout" id="CMi-fJ-FKq" customClass="BannerLayout" customModule="MMCardView"/>
+                                <collectionViewLayout key="collectionViewLayout" id="Ocf-IX-Sea" customClass="BannerLayout" customModule="MMCardView"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BannerViewCell" id="zys-7n-DKU" customClass="BannerViewCell" customModule="MMCardView_Example" customModuleProvider="target">
                                         <rect key="frame" x="1.5" y="0.0" width="372" height="122"/>
