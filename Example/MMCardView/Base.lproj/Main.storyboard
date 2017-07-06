@@ -36,7 +36,7 @@
                                         <rect key="frame" x="15.5" y="0.0" width="344" height="146"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="345" height="146"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="344" height="146"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CardD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A48-ba-qx6">
@@ -101,23 +101,36 @@
                                         <rect key="frame" x="1.5" y="0.0" width="372" height="122"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="373" height="122"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="372" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mGg-zg-Q5R">
                                                     <rect key="frame" x="0.0" y="0.0" width="372" height="122"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGn-LO-ocy">
+                                                    <rect key="frame" x="7.5" y="8" width="356" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="Aw3-na-d49"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="mGg-zg-Q5R" secondAttribute="bottom" id="UqZ-zT-UgQ"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="dGn-LO-ocy" secondAttribute="trailing" id="Wpl-P4-Hmk"/>
+                                            <constraint firstItem="dGn-LO-ocy" firstAttribute="leading" secondItem="zys-7n-DKU" secondAttribute="leadingMargin" id="XbQ-4G-LS3"/>
                                             <constraint firstItem="mGg-zg-Q5R" firstAttribute="leading" secondItem="zys-7n-DKU" secondAttribute="leading" id="YwG-s6-DIY"/>
+                                            <constraint firstItem="dGn-LO-ocy" firstAttribute="top" secondItem="zys-7n-DKU" secondAttribute="topMargin" id="epx-GJ-oYk"/>
                                             <constraint firstItem="mGg-zg-Q5R" firstAttribute="top" secondItem="zys-7n-DKU" secondAttribute="top" id="ibK-yn-To3"/>
                                             <constraint firstAttribute="trailing" secondItem="mGg-zg-Q5R" secondAttribute="trailing" id="ke7-9Z-Hbg"/>
                                         </constraints>
                                         <size key="customSize" width="372" height="122"/>
                                         <connections>
                                             <outlet property="imgView" destination="mGg-zg-Q5R" id="Eux-jw-WIE"/>
+                                            <outlet property="labPath" destination="dGn-LO-ocy" id="Wiq-Mf-FwH"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

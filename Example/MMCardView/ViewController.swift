@@ -16,10 +16,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         if let layout = banner.collectionViewLayout as? BannerLayout {
             layout.itemSpace = 5.0
-            layout.itemSize = self.banner!.frame.insetBy(dx: 30, dy: 5).size
+            layout.itemSize = self.banner!.frame.insetBy(dx: 40, dy: 5).size
 //            layout.itemEdge = UIEdgeInsets(top: 10, left: 2.5, bottom: 2.5, right: 10)
         }
-        
+//        (banner.collectionViewLayout as? BannerLayout)?.autoPlayBanner = true
         (banner.collectionViewLayout as? BannerLayout)?.isInfinite = true
         cardCollection.register(UINib(nibName: "CardACell", bundle: nil), forCellWithReuseIdentifier: "CardA")
         cardCollection.register(UINib(nibName: "CardBCell", bundle: nil), forCellWithReuseIdentifier: "CardB")
@@ -128,6 +128,8 @@ extension ViewController: UICollectionViewDataSource {
         } else {
             (cell as? BannerViewCell)?.imgView.image = #imageLiteral(resourceName: "image4")
         }
+        (cell as? BannerViewCell)?.labPath.text = "Current Section : \(indexPath.section) Row: \(indexPath.row)"
+
         return cell
     }
     

@@ -10,4 +10,5 @@ import UIKit
 
 class BannerViewCell: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var labPath: UILabel!
 }

@@ -47,9 +47,12 @@ public class BannerLayout: UICollectionViewLayout {
         set {
             switch self.style {
             case .normal:
-                let needAnimate = !(newValue == 0 && currentIdx != 0)
-                let x = (self.collectionView!.frame.width) * CGFloat(newValue)
-                self.collectionView!.setContentOffset(CGPoint(x: x, y: 0), animated: needAnimate)
+                let centerX = self.collectionView!.contentOffset.x + (self.collectionView!.frame.width/2)
+
+                if let attr = self.attributeList[safe: newValue] {
+                    let x = self.collectionView!.contentOffset.x + attr.frame.midX - centerX
+                    self.collectionView!.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+                }
             }
             self._currentIdx = newValue
 
@@ -140,7 +143,7 @@ public class BannerLayout: UICollectionViewLayout {
             return
         }
         let will = self.currentIdx + 1
-        self.currentIdx = (will < self.collectionView!.calculate.totalCount - 1) ? will : 0
+        self.currentIdx = (will < self.collectionView!.calculate.totalCount) ? will : 0
     }
     
     override public func prepare() {
@@ -164,8 +167,6 @@ public class BannerLayout: UICollectionViewLayout {
         let one = self.totalContentSize(isInfinite: false)
         let first = one.width-(width-itemSize.width)/2
         let another = one.width-(width-itemSize.width)+itemSpace
-        print(another)
-        print("S\(range.start) E:\(range.end)")
         (range.start.cycle...range.end.cycle).forEach { (cycle) in
             let start = cycle == range.start.cycle ? range.start.index : 0
             let end  = cycle == range.end.cycle ? range.end.index : self.collectionView!.calculate.totalCount - 1
@@ -213,7 +214,6 @@ public class BannerLayout: UICollectionViewLayout {
             var preDistance = CGFloat.greatestFiniteMagnitude
             
             if velocity.x != 0 {
-                
                 let idx = velocity.x > 0 ? _currentIdx+1 : _currentIdx-1
                 if let attr = self.attributeList[safe: idx] {
                     fix.x = self.collectionView!.contentOffset.x + attr.frame.midX - centerX
@@ -223,9 +223,7 @@ public class BannerLayout: UICollectionViewLayout {
                 var idx = 0
                 attributeList.enumerated().forEach({
                     let mid = CGPoint(x: $0.element.frame.midX, y: $0.element.frame.midY)
-                    
                     let distance = mid.distance(point: CGPoint(x: centerX, y: self.collectionView!.contentOffset.y))
-                    
                     if preDistance > distance {
                         preDistance = distance
                         attribute = $0.element
@@ -238,7 +236,6 @@ public class BannerLayout: UICollectionViewLayout {
                 }
             }
        }
-        
         return fix
     }
 }
