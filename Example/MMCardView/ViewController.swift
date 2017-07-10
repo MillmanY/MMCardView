@@ -16,11 +16,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         if let layout = banner.collectionViewLayout as? BannerLayout {
             layout.itemSpace = 5.0
-            layout.itemSize = self.banner!.frame.insetBy(dx: 40, dy: 5).size
-//            layout.itemEdge = UIEdgeInsets(top: 10, left: 2.5, bottom: 2.5, right: 10)
+            layout.itemSize = self.banner!.frame.insetBy(dx: 20, dy: 5).size
+            layout.autoPlayBanner = true
+            layout.isInfinite = true
+
         }
-//        (banner.collectionViewLayout as? BannerLayout)?.autoPlayBanner = true
-        (banner.collectionViewLayout as? BannerLayout)?.isInfinite = true
         cardCollection.register(UINib(nibName: "CardACell", bundle: nil), forCellWithReuseIdentifier: "CardA")
         cardCollection.register(UINib(nibName: "CardBCell", bundle: nil), forCellWithReuseIdentifier: "CardB")
         cardCollection.register(UINib(nibName: "CardCCell", bundle: nil), forCellWithReuseIdentifier: "CardC")

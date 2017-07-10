@@ -10,18 +10,18 @@
 		439F6E8B8680B60D1C3CC754AE987411 /* Pods-MMCardView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 951C14D2D6B540133A1EED11EE64A5CC /* Pods-MMCardView_Example-dummy.m */; };
 		5E0A06DC1EFABB11008B9D10 /* DelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A06DB1EFABB11008B9D10 /* DelegateProxy.swift */; };
 		5E6982CC1EFA77D4008CBD3C /* MMCardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6982CB1EFA77D4008CBD3C /* MMCardCollectionView.swift */; };
+		5EA1A2501F1326E8004CB290 /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A24D1F1326E8004CB290 /* Array+Safe.swift */; };
+		5EA1A2511F1326E8004CB290 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A24E1F1326E8004CB290 /* CGPoint+Distance.swift */; };
+		5EA1A2551F132716004CB290 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A2531F132716004CB290 /* UIView+Shadow.swift */; };
+		5EA1A2561F132716004CB290 /* UIViewController+Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A2541F132716004CB290 /* UIViewController+Current.swift */; };
 		5EAE6F1A1F0B36C000FD8DA2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F171F0B36C000FD8DA2 /* CardCell.swift */; };
 		5EAE6F1B1F0B36C000FD8DA2 /* CustomCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F181F0B36C000FD8DA2 /* CustomCardLayout.swift */; };
 		5EAE6F1C1F0B36C000FD8DA2 /* CustomFlipTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F191F0B36C000FD8DA2 /* CustomFlipTransition.swift */; };
 		5EAE6F241F0B527C00FD8DA2 /* BannerLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F231F0B527C00FD8DA2 /* BannerLayout.swift */; };
 		5EAE6F281F0B54A900FD8DA2 /* CollectionViewCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F271F0B54A900FD8DA2 /* CollectionViewCalculate.swift */; };
-		5EF217791F0DD90100BBF880 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF217781F0DD90100BBF880 /* CGPoint+Distance.swift */; };
-		5EF2177B1F0E431500BBF880 /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2177A1F0E431500BBF880 /* Array+Safe.swift */; };
-		623C34B36CA06687721E079776CD56E6 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD778B74F2FDFF59F0785F1E660241AF /* UIViewExtension.swift */; };
 		651DA3DC412008253BD3900C927E4BD5 /* Pods-MMCardView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 76C8079BE073931498BC538E93D30B5D /* Pods-MMCardView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		999EA99F23081C914EC9B8B5D33E2C63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		B2BD3D62C4E91B14479A4BCB680F712A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		DBF14B41E7004437329CC2AF97BD5D42 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA19F9D7C59C77090FDA4974DB423AC8 /* UIViewControllerExtension.swift */; };
 		E986E308A1B39DE8288B14F20B9EBBE2 /* MMCardView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 840EDDA8D17DAE92890DCF9991D069FA /* MMCardView-dummy.m */; };
 		EFC85286D26A326D10B31090D1E2E3BF /* MMCardView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CA3EC33D52CC1EC5DF852B5F8C1A6152 /* MMCardView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -43,13 +43,15 @@
 		5A7CDCBA443074BCF168802A15976D43 /* MMCardView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MMCardView-prefix.pch"; sourceTree = "<group>"; };
 		5E0A06DB1EFABB11008B9D10 /* DelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateProxy.swift; sourceTree = "<group>"; };
 		5E6982CB1EFA77D4008CBD3C /* MMCardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMCardCollectionView.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		5EA1A24D1F1326E8004CB290 /* Array+Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
+		5EA1A24E1F1326E8004CB290 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
+		5EA1A2531F132716004CB290 /* UIView+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
+		5EA1A2541F132716004CB290 /* UIViewController+Current.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Current.swift"; sourceTree = "<group>"; };
 		5EAE6F171F0B36C000FD8DA2 /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		5EAE6F181F0B36C000FD8DA2 /* CustomCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCardLayout.swift; sourceTree = "<group>"; };
 		5EAE6F191F0B36C000FD8DA2 /* CustomFlipTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlipTransition.swift; sourceTree = "<group>"; };
 		5EAE6F231F0B527C00FD8DA2 /* BannerLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerLayout.swift; sourceTree = "<group>"; };
 		5EAE6F271F0B54A900FD8DA2 /* CollectionViewCalculate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCalculate.swift; sourceTree = "<group>"; };
-		5EF217781F0DD90100BBF880 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
-		5EF2177A1F0E431500BBF880 /* Array+Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
 		64C8261BDAA5EACB4DF2248EED7DCA72 /* Pods-MMCardView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MMCardView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		76C8079BE073931498BC538E93D30B5D /* Pods-MMCardView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MMCardView_Example-umbrella.h"; sourceTree = "<group>"; };
 		7BB1874B116D7C577F380D11746C06B4 /* Pods-MMCardView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MMCardView_Example.modulemap"; sourceTree = "<group>"; };
@@ -60,8 +62,6 @@
 		A794CD8C41889A34488FFF84DC3AB4ED /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1C0DBB2440AC644B9EBCEDE0E41928D /* MMCardView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MMCardView.xcconfig; sourceTree = "<group>"; };
 		B79A2BF957A794BAAD4BA21A5EB674D8 /* Pods-MMCardView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MMCardView_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		BA19F9D7C59C77090FDA4974DB423AC8 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
-		BD778B74F2FDFF59F0785F1E660241AF /* UIViewExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		C38B7912546867D351212E5BBF51F41B /* Pods-MMCardView_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MMCardView_Example-resources.sh"; sourceTree = "<group>"; };
 		CA3EC33D52CC1EC5DF852B5F8C1A6152 /* MMCardView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MMCardView-umbrella.h"; sourceTree = "<group>"; };
 		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -101,17 +101,25 @@
 		451ECABCA19E367A2D42C5491F7E86DE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5EA1A24C1F1326E8004CB290 /* Extension */,
 				5EAE6F201F0B523300FD8DA2 /* BannerLayout */,
 				5EAE6F161F0B36C000FD8DA2 /* CardLayout */,
 				5E6982CB1EFA77D4008CBD3C /* MMCardCollectionView.swift */,
-				BA19F9D7C59C77090FDA4974DB423AC8 /* UIViewControllerExtension.swift */,
-				BD778B74F2FDFF59F0785F1E660241AF /* UIViewExtension.swift */,
 				5E0A06DB1EFABB11008B9D10 /* DelegateProxy.swift */,
 				5EAE6F271F0B54A900FD8DA2 /* CollectionViewCalculate.swift */,
-				5EF217781F0DD90100BBF880 /* CGPoint+Distance.swift */,
-				5EF2177A1F0E431500BBF880 /* Array+Safe.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		5EA1A24C1F1326E8004CB290 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				5EA1A2531F132716004CB290 /* UIView+Shadow.swift */,
+				5EA1A2541F132716004CB290 /* UIViewController+Current.swift */,
+				5EA1A24D1F1326E8004CB290 /* Array+Safe.swift */,
+				5EA1A24E1F1326E8004CB290 /* CGPoint+Distance.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		5EAE6F161F0B36C000FD8DA2 /* CardLayout */ = {
@@ -315,15 +323,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EF2177B1F0E431500BBF880 /* Array+Safe.swift in Sources */,
-				5EF217791F0DD90100BBF880 /* CGPoint+Distance.swift in Sources */,
+				5EA1A2511F1326E8004CB290 /* CGPoint+Distance.swift in Sources */,
 				5EAE6F241F0B527C00FD8DA2 /* BannerLayout.swift in Sources */,
 				5E6982CC1EFA77D4008CBD3C /* MMCardCollectionView.swift in Sources */,
 				5EAE6F1B1F0B36C000FD8DA2 /* CustomCardLayout.swift in Sources */,
+				5EA1A2551F132716004CB290 /* UIView+Shadow.swift in Sources */,
 				5E0A06DC1EFABB11008B9D10 /* DelegateProxy.swift in Sources */,
 				E986E308A1B39DE8288B14F20B9EBBE2 /* MMCardView-dummy.m in Sources */,
-				DBF14B41E7004437329CC2AF97BD5D42 /* UIViewControllerExtension.swift in Sources */,
-				623C34B36CA06687721E079776CD56E6 /* UIViewExtension.swift in Sources */,
+				5EA1A2501F1326E8004CB290 /* Array+Safe.swift in Sources */,
+				5EA1A2561F132716004CB290 /* UIViewController+Current.swift in Sources */,
 				5EAE6F281F0B54A900FD8DA2 /* CollectionViewCalculate.swift in Sources */,
 				5EAE6F1C1F0B36C000FD8DA2 /* CustomFlipTransition.swift in Sources */,
 				5EAE6F1A1F0B36C000FD8DA2 /* CardCell.swift in Sources */,
