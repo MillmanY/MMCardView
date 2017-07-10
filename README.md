@@ -19,7 +19,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     iOS 8.0+
     Xcode 8.0+
     Swift 3.0+
-## Use
+## Use Card
 1.Inherit your collectionView to MMCollectionView
        
     @IBOutlet weak var cardCollection: MMCollectionView!
@@ -29,7 +29,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
     class CardACell: CardCell {
 
     }
-## Other         
 
     if let layout = cardCollection.collectionViewLayout as? CustomCardLayout {
          layout.titleHeight = 100.0
@@ -37,6 +36,15 @@ To run the example project, clone the repo, and run `pod install` from the Examp
          layout.cardHeight = 300
          layout.showStyle = .cover
     }
+## Use Banner
+
+    if let layout = banner.collectionViewLayout as? BannerLayout {
+            layout.itemSpace = 5.0
+            layout.itemSize = self.banner!.frame.insetBy(dx: 20, dy: 5).size
+            layout.autoPlayBanner = true
+            layout.isInfinite = true
+    }
+
 ## Installation
 
 MMCardView is available through [CocoaPods](http://cocoapods.org). To install
