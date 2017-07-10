@@ -16,8 +16,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         if let layout = banner.collectionViewLayout as? BannerLayout {
             layout.itemSpace = 5.0
-            layout.itemSize = self.banner!.frame.insetBy(dx: 20, dy: 5).size
-            layout.autoPlayBanner = true
+            layout.itemSize = self.banner!.frame.insetBy(dx: 100, dy: 5).size
+//            layout.angle = 45
+//            layout.an
+//            layout.autoPlayBanner = true
             layout.isInfinite = true
 
         }
@@ -128,7 +130,9 @@ extension ViewController: UICollectionViewDataSource {
         } else {
             (cell as? BannerViewCell)?.imgView.image = #imageLiteral(resourceName: "image4")
         }
-        (cell as? BannerViewCell)?.labPath.text = "Current Section : \(indexPath.section) Row: \(indexPath.row)"
+        
+        
+       (cell as? BannerViewCell)?.labPath.text = "Current Section : \(indexPath.section) Row: \(indexPath.row)"
 
         return cell
     }

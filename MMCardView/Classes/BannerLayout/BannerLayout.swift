@@ -28,6 +28,7 @@ public class BannerLayout: UICollectionViewLayout {
     public var itemSpace:CGFloat = 0.0
     
     fileprivate var _itemSize:CGSize?
+    public var angle: CGFloat = 0.0
     public var itemSize: CGSize{
         set {
             self._itemSize = newValue
@@ -184,21 +185,64 @@ public class BannerLayout: UICollectionViewLayout {
         let one = self.totalContentSize(isInfinite: false)
         let first = one.width-(width-itemSize.width)/2
         let another = one.width-(width-itemSize.width)+itemSpace
+        
+        let radius = angle*CGFloat.pi/180
+//        let centerX = self.collectionView!.contentOffset.x + (self.collectionView!.frame.width/2)
+        
+        let lastIdx = self.collectionView!.calculate.totalCount - 1
+//        var centerIdx = 0
+//        var attribute: BannerLayoutAttributes?
+//        var preDistance = CGFloat.greatestFiniteMagnitude
         (range.start.cycle...range.end.cycle).forEach { (cycle) in
             let start = cycle == range.start.cycle ? range.start.index : 0
-            let end  = cycle == range.end.cycle ? range.end.index : self.collectionView!.calculate.totalCount - 1
+            let end  = cycle == range.end.cycle ? range.end.index : lastIdx
             var x:CGFloat = 0
             (start...end).forEach({ (idx) in
-                let location = (itemSize.width+itemSpace)*CGFloat(idx)
+                
+                let location = (itemSize.width+itemSpace)*CGFloat(idx)*cos(radius)
                 if cycle == 0 {
                     x = (idx == 0) ? (width-itemSize.width)/2 : location + (width-itemSize.width)/2
                 } else {
                     let cycleF = first + CGFloat(cycle-1) * another + itemSpace
                     x = (idx == 0) ? cycleF : cycleF + location
                 }
-                attributeList[idx].frame = CGRect(x: x, y: (height - itemSize.height)/2, width: itemSize.width, height: itemSize.height)
+                let f = CGRect(x: x, y: (height - itemSize.height)/2, width: itemSize.width, height: itemSize.height)
+                attributeList[idx].frame = f
+//                let mid = CGPoint(x: f.midX, y: f.midY)
+//                let distance = mid.distance(point: CGPoint(x: centerX, y: self.collectionView!.contentOffset.y))
+//                if preDistance > distance {
+//                    preDistance = distance
+//                    attribute = $0.element
+//                }
+
+                
             })
         }
+//        var transform = CATransform3DIdentity
+//        transform.m34  = -1 / 500
+//
+//        let midX = attributeList[currentIdx].frame.midX
+//        let nextIdx = (currentIdx+1>lastIdx) ? (currentIdx+1)%lastIdx : currentIdx+1
+//        let preIdx = (currentIdx-1<0) ? lastIdx : currentIdx-1
+//
+//        if centerX == midX {
+//            attributeList[currentIdx].transform3D = CATransform3DIdentity
+//            attributeList[nextIdx].transform3D = CATransform3DRotate(transform, -radius, 0, 1, 0)
+//            attributeList[preIdx].transform3D = CATransform3DRotate(transform, radius, 0, 1, 0)
+//        } else if centerX > midX {
+//            let nextMid = attributeList[nextIdx].frame.midX
+//            let percent = (centerX-midX)/(nextMid-midX)
+//            attributeList[currentIdx].transform3D = CATransform3DRotate(transform, radius*(percent), 0, 1, 0)
+//            attributeList[nextIdx].transform3D = CATransform3DRotate(transform, -radius*(1-percent), 0, 1, 0)
+//            attributeList[preIdx].transform3D = CATransform3DRotate(transform, radius, 0, 1, 0)
+//        } else {
+//            let preMid = attributeList[preIdx].frame.midX
+//            let percent = (midX-centerX)/(midX-preMid)
+//            attributeList[currentIdx].transform3D = CATransform3DRotate(transform, -radius*(percent), 0, 1, 0)
+//            attributeList[nextIdx].transform3D = CATransform3DRotate(transform, -radius, 0, 1, 0)
+//            attributeList[preIdx].transform3D = CATransform3DRotate(transform, radius*(1-percent), 0, 1, 0)
+//        }
+        
     }
     
     fileprivate func generateAttributeList() -> [BannerLayoutAttributes] {
@@ -226,10 +270,18 @@ public class BannerLayout: UICollectionViewLayout {
         var fix = proposedContentOffset
         switch self.style {
         case .normal:
+            let lastIdx = self.collectionView!.calculate.totalCount - 1
             let centerX = self.collectionView!.contentOffset.x + (self.collectionView!.frame.width/2)
             
             if velocity.x != 0 {
-                let idx = velocity.x > 0 ? _currentIdx+1 : _currentIdx-1
+                var idx = _currentIdx
+                
+                if velocity.x > 0 {
+                    idx = (_currentIdx+1 > lastIdx) ? (currentIdx+1)%lastIdx : _currentIdx+1
+                } else {
+                    idx = (_currentIdx-1 < 0) ? lastIdx : currentIdx-1
+                }
+                
                 if let attr = self.attributeList[safe: idx] {
                     fix.x = self.collectionView!.contentOffset.x + attr.frame.midX - centerX
                     self._currentIdx = idx
@@ -240,7 +292,8 @@ public class BannerLayout: UICollectionViewLayout {
                     fix.x = self.collectionView!.contentOffset.x + attr.frame.midX - centerX
                 }
             }
-       }
+        }
+        
         return fix
     }
     

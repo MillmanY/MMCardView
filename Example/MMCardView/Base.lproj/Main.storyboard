@@ -108,7 +108,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="372" height="122"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGn-LO-ocy">
-                                                    <rect key="frame" x="7.5" y="8" width="356" height="40"/>
+                                                    <rect key="frame" x="7.5" y="8" width="42" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="Aw3-na-d49"/>
                                                     </constraints>
@@ -120,7 +120,6 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="mGg-zg-Q5R" secondAttribute="bottom" id="UqZ-zT-UgQ"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="dGn-LO-ocy" secondAttribute="trailing" id="Wpl-P4-Hmk"/>
                                             <constraint firstItem="dGn-LO-ocy" firstAttribute="leading" secondItem="zys-7n-DKU" secondAttribute="leadingMargin" id="XbQ-4G-LS3"/>
                                             <constraint firstItem="mGg-zg-Q5R" firstAttribute="leading" secondItem="zys-7n-DKU" secondAttribute="leading" id="YwG-s6-DIY"/>
                                             <constraint firstItem="dGn-LO-ocy" firstAttribute="top" secondItem="zys-7n-DKU" secondAttribute="topMargin" id="epx-GJ-oYk"/>
