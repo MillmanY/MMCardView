@@ -129,7 +129,7 @@ public class BannerLayout: UICollectionViewLayout {
                 cycle = 1 + Int(floor((self.collectionView!.contentOffset.x-first.width)/another.width))
                 start = start - (first.width + CGFloat(cycle-1) * another.width)
             }
-            let twoDistance = angleItemWidth+itemSpace
+            let twoDistance =  itemSize.width/2+angleItemWidth/2+itemSpace
 
             let current = Int(floor( start / (twoDistance))) > total-1 ? total-1 : Int(floor( start / (twoDistance)))
             let end = Int(floor((start + width) / twoDistance))
@@ -160,8 +160,9 @@ public class BannerLayout: UICollectionViewLayout {
     fileprivate func totalContentSize(isInfinite: Bool) -> CGSize {
         switch style {
         case .normal:
-            
-            let width = (isInfinite) ? CGFloat.greatestFiniteMagnitude : CGFloat(self.collectionView!.calculate.totalCount-1) * (angleItemWidth + itemSpace) + self.collectionView!.frame.width
+            let twoDistance =  itemSize.width/2+angleItemWidth/2+itemSpace
+
+            let width = (isInfinite) ? CGFloat.greatestFiniteMagnitude : CGFloat(self.collectionView!.calculate.totalCount-1) * (twoDistance) + self.collectionView!.frame.width
             let height = self.collectionView!.frame.height
             return CGSize(width: width, height: height)
         }
@@ -214,7 +215,7 @@ public class BannerLayout: UICollectionViewLayout {
         var centerIdx = 0
         var preDistance = CGFloat.greatestFiniteMagnitude
         
-        let twoDistance = angleItemWidth+itemSpace
+        let twoDistance =  itemSize.width/2+angleItemWidth/2+itemSpace
         (range.start.cycle...range.end.cycle).forEach { (cycle) in
             let start = cycle == range.start.cycle ? range.start.index : 0
             let end  = cycle == range.end.cycle ? range.end.index : lastIdx
@@ -223,7 +224,12 @@ public class BannerLayout: UICollectionViewLayout {
                 
                 let location = twoDistance*CGFloat(idx)
                 if cycle == 0 {
-                    x = (idx == 0) ? (width-itemSize.width)/2 : (width-itemSize.width)/2 + location
+                    if idx == 0{
+                        x = (width-itemSize.width)/2
+                    } else {
+                        x = (width-itemSize.width)/2 + location
+                    }
+//                    x = (idx == 0) ? (width-itemSize.width)/2 : (width-itemSize.width)/2 + location
                 } else {
                     let cycleF = first.width + CGFloat(cycle-1) * another.width + itemSpace
                     x = (idx == 0) ? cycleF : cycleF + location
@@ -269,7 +275,6 @@ public class BannerLayout: UICollectionViewLayout {
                 attributeList[$0.element].transform3D = CATransform3DRotate(transform, r, 0, 1, 0)
             }
         }
-        print(percent)
     }
     
     fileprivate func generateAttributeList() -> [BannerLayoutAttributes] {
@@ -310,7 +315,11 @@ public class BannerLayout: UICollectionViewLayout {
                         idx = (_currentIdx+1 > lastIdx) ? (currentIdx+1)%lastIdx : _currentIdx+1
                     }
                 } else {
-                    idx = (_currentIdx-1 < 0) ? lastIdx : currentIdx-1
+                    if !self.isInfinite {
+                        idx = (_currentIdx-1 < 0) ? 0 : currentIdx-1
+                    } else {
+                        idx = (_currentIdx-1 < 0) ? lastIdx : currentIdx-1
+                    }
                 }
                 if let attr = self.attributeList[safe: idx] {
                     self._currentIdx = idx

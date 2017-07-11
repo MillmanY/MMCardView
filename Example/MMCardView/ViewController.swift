@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let layout = banner.collectionViewLayout as? BannerLayout {
-            layout.itemSpace = 5.0
-            layout.itemSize = self.banner!.frame.insetBy(dx: 50, dy: 5).size
+            layout.itemSpace = 5.0 
+            layout.itemSize = self.banner!.frame.insetBy(dx: 70, dy: 5).size
             layout.angle = 45
 //            layout.an
 //            layout.autoPlayBanner = true
