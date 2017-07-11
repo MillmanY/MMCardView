@@ -20,7 +20,7 @@ class ViewController: UIViewController {
             layout.angle = 45
 //            layout.an
 //            layout.autoPlayBanner = true
-            layout.isInfinite = true
+//            layout.isInfinite = true
 
         }
         cardCollection.register(UINib(nibName: "CardACell", bundle: nil), forCellWithReuseIdentifier: "CardA")
