@@ -49,6 +49,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
             layout.itemSize = self.banner!.frame.insetBy(dx: 20, dy: 5).size
             layout.autoPlayBanner = true
             layout.isInfinite = true
+            layout.angle = 45
     }
 
 ## Installation
