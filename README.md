@@ -18,7 +18,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ![demo](https://github.com/MillmanY/MMCardView/blob/master/demoBanner.gif)
 
-
+![demo](https://github.com/MillmanY/MMCardView/blob/master/mid_small.gif)
 
 ## Requirements
 
