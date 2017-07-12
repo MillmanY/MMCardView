@@ -10,8 +10,14 @@
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Demo
+1.Card
 
 ![demo](https://github.com/MillmanY/MMCardView/blob/master/demo.gif)
+
+2.Banner
+
+![demo](https://github.com/MillmanY/MMCardView/blob/master/demoBanner.gif)
+
 
 
 ## Requirements
