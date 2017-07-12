@@ -254,7 +254,7 @@ public class BannerLayout: UICollectionViewLayout {
     
         let centerLoc = setIdx.index(of: _currentIdx) ?? 0
         var transform = CATransform3DIdentity
-        transform.m34  = -1 / 500
+        transform.m34  = -1 / 700
         setIdx.enumerated().forEach {
             switch $0.offset {
             case centerLoc-1:
