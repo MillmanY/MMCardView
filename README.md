@@ -14,11 +14,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ![demo](https://github.com/MillmanY/MMCardView/blob/master/demo.gif)
 
-2.Banner
-
-![demo](https://github.com/MillmanY/MMCardView/blob/master/demoBanner.gif)
-
-![demo](https://github.com/MillmanY/MMCardView/blob/master/mid_small.gif)
 
 ## Requirements
 
@@ -42,16 +37,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
          layout.cardHeight = 300
          layout.showStyle = .cover
     }
-## Use Banner
-
-    if let layout = banner.collectionViewLayout as? BannerLayout {
-            layout.itemSpace = 5.0
-            layout.itemSize = self.banner!.frame.insetBy(dx: 20, dy: 5).size
-            layout.autoPlayBanner = true
-            layout.isInfinite = true
-            layout.angle = 45
-    }
-
 ## Installation
 
 MMCardView is available through [CocoaPods](http://cocoapods.org). To install
