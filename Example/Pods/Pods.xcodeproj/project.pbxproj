@@ -10,14 +10,11 @@
 		439F6E8B8680B60D1C3CC754AE987411 /* Pods-MMCardView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 951C14D2D6B540133A1EED11EE64A5CC /* Pods-MMCardView_Example-dummy.m */; };
 		5E0A06DC1EFABB11008B9D10 /* DelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A06DB1EFABB11008B9D10 /* DelegateProxy.swift */; };
 		5E6982CC1EFA77D4008CBD3C /* MMCardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6982CB1EFA77D4008CBD3C /* MMCardCollectionView.swift */; };
-		5EA1A2501F1326E8004CB290 /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A24D1F1326E8004CB290 /* Array+Safe.swift */; };
-		5EA1A2511F1326E8004CB290 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A24E1F1326E8004CB290 /* CGPoint+Distance.swift */; };
 		5EA1A2551F132716004CB290 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A2531F132716004CB290 /* UIView+Shadow.swift */; };
 		5EA1A2561F132716004CB290 /* UIViewController+Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A2541F132716004CB290 /* UIViewController+Current.swift */; };
 		5EAE6F1A1F0B36C000FD8DA2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F171F0B36C000FD8DA2 /* CardCell.swift */; };
 		5EAE6F1B1F0B36C000FD8DA2 /* CustomCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F181F0B36C000FD8DA2 /* CustomCardLayout.swift */; };
 		5EAE6F1C1F0B36C000FD8DA2 /* CustomFlipTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F191F0B36C000FD8DA2 /* CustomFlipTransition.swift */; };
-		5EAE6F241F0B527C00FD8DA2 /* BannerLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F231F0B527C00FD8DA2 /* BannerLayout.swift */; };
 		5EAE6F281F0B54A900FD8DA2 /* CollectionViewCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE6F271F0B54A900FD8DA2 /* CollectionViewCalculate.swift */; };
 		651DA3DC412008253BD3900C927E4BD5 /* Pods-MMCardView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 76C8079BE073931498BC538E93D30B5D /* Pods-MMCardView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		999EA99F23081C914EC9B8B5D33E2C63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
@@ -43,14 +40,11 @@
 		5A7CDCBA443074BCF168802A15976D43 /* MMCardView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MMCardView-prefix.pch"; sourceTree = "<group>"; };
 		5E0A06DB1EFABB11008B9D10 /* DelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateProxy.swift; sourceTree = "<group>"; };
 		5E6982CB1EFA77D4008CBD3C /* MMCardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMCardCollectionView.swift; sourceTree = "<group>"; wrapsLines = 0; };
-		5EA1A24D1F1326E8004CB290 /* Array+Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
-		5EA1A24E1F1326E8004CB290 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
 		5EA1A2531F132716004CB290 /* UIView+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		5EA1A2541F132716004CB290 /* UIViewController+Current.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Current.swift"; sourceTree = "<group>"; };
 		5EAE6F171F0B36C000FD8DA2 /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		5EAE6F181F0B36C000FD8DA2 /* CustomCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCardLayout.swift; sourceTree = "<group>"; };
 		5EAE6F191F0B36C000FD8DA2 /* CustomFlipTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlipTransition.swift; sourceTree = "<group>"; };
-		5EAE6F231F0B527C00FD8DA2 /* BannerLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerLayout.swift; sourceTree = "<group>"; };
 		5EAE6F271F0B54A900FD8DA2 /* CollectionViewCalculate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCalculate.swift; sourceTree = "<group>"; };
 		64C8261BDAA5EACB4DF2248EED7DCA72 /* Pods-MMCardView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MMCardView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		76C8079BE073931498BC538E93D30B5D /* Pods-MMCardView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MMCardView_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -102,7 +96,6 @@
 			isa = PBXGroup;
 			children = (
 				5EA1A24C1F1326E8004CB290 /* Extension */,
-				5EAE6F201F0B523300FD8DA2 /* BannerLayout */,
 				5EAE6F161F0B36C000FD8DA2 /* CardLayout */,
 				5E6982CB1EFA77D4008CBD3C /* MMCardCollectionView.swift */,
 				5E0A06DB1EFABB11008B9D10 /* DelegateProxy.swift */,
@@ -116,8 +109,6 @@
 			children = (
 				5EA1A2531F132716004CB290 /* UIView+Shadow.swift */,
 				5EA1A2541F132716004CB290 /* UIViewController+Current.swift */,
-				5EA1A24D1F1326E8004CB290 /* Array+Safe.swift */,
-				5EA1A24E1F1326E8004CB290 /* CGPoint+Distance.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -130,14 +121,6 @@
 				5EAE6F191F0B36C000FD8DA2 /* CustomFlipTransition.swift */,
 			);
 			path = CardLayout;
-			sourceTree = "<group>";
-		};
-		5EAE6F201F0B523300FD8DA2 /* BannerLayout */ = {
-			isa = PBXGroup;
-			children = (
-				5EAE6F231F0B527C00FD8DA2 /* BannerLayout.swift */,
-			);
-			path = BannerLayout;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -323,14 +306,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EA1A2511F1326E8004CB290 /* CGPoint+Distance.swift in Sources */,
-				5EAE6F241F0B527C00FD8DA2 /* BannerLayout.swift in Sources */,
 				5E6982CC1EFA77D4008CBD3C /* MMCardCollectionView.swift in Sources */,
 				5EAE6F1B1F0B36C000FD8DA2 /* CustomCardLayout.swift in Sources */,
 				5EA1A2551F132716004CB290 /* UIView+Shadow.swift in Sources */,
 				5E0A06DC1EFABB11008B9D10 /* DelegateProxy.swift in Sources */,
 				E986E308A1B39DE8288B14F20B9EBBE2 /* MMCardView-dummy.m in Sources */,
-				5EA1A2501F1326E8004CB290 /* Array+Safe.swift in Sources */,
 				5EA1A2561F132716004CB290 /* UIViewController+Current.swift in Sources */,
 				5EAE6F281F0B54A900FD8DA2 /* CollectionViewCalculate.swift in Sources */,
 				5EAE6F1C1F0B36C000FD8DA2 /* CustomFlipTransition.swift in Sources */,

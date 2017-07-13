@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JHC-qq-J6f" customClass="MMCollectionView" customModule="MMCardView">
-                                <rect key="frame" x="0.0" y="216" width="375" height="451"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eIL-Lk-Q5M">
                                     <size key="itemSize" width="344" height="146"/>
@@ -36,7 +36,7 @@
                                         <rect key="frame" x="15.5" y="0.0" width="344" height="146"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="344" height="146"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="345" height="146"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CardD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A48-ba-qx6">
@@ -89,65 +89,13 @@
                                     <action selector="filterAction" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Dt8-Cb-My9"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yAS-7M-wZi" customClass="MMCollectionView" customModule="MMCardView">
-                                <rect key="frame" x="0.0" y="75" width="375" height="126"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="126" id="6hj-RH-Ofd"/>
-                                </constraints>
-                                <collectionViewLayout key="collectionViewLayout" id="Ocf-IX-Sea" customClass="BannerLayout" customModule="MMCardView"/>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BannerViewCell" id="zys-7n-DKU" customClass="BannerViewCell" customModule="MMCardView_Example" customModuleProvider="target">
-                                        <rect key="frame" x="1.5" y="0.0" width="372" height="122"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="372" height="122"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mGg-zg-Q5R">
-                                                    <rect key="frame" x="0.0" y="0.0" width="372" height="122"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGn-LO-ocy">
-                                                    <rect key="frame" x="7.5" y="8" width="42" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Aw3-na-d49"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="mGg-zg-Q5R" secondAttribute="bottom" id="UqZ-zT-UgQ"/>
-                                            <constraint firstItem="dGn-LO-ocy" firstAttribute="leading" secondItem="zys-7n-DKU" secondAttribute="leadingMargin" id="XbQ-4G-LS3"/>
-                                            <constraint firstItem="mGg-zg-Q5R" firstAttribute="leading" secondItem="zys-7n-DKU" secondAttribute="leading" id="YwG-s6-DIY"/>
-                                            <constraint firstItem="dGn-LO-ocy" firstAttribute="top" secondItem="zys-7n-DKU" secondAttribute="topMargin" id="epx-GJ-oYk"/>
-                                            <constraint firstItem="mGg-zg-Q5R" firstAttribute="top" secondItem="zys-7n-DKU" secondAttribute="top" id="ibK-yn-To3"/>
-                                            <constraint firstAttribute="trailing" secondItem="mGg-zg-Q5R" secondAttribute="trailing" id="ke7-9Z-Hbg"/>
-                                        </constraints>
-                                        <size key="customSize" width="372" height="122"/>
-                                        <connections>
-                                            <outlet property="imgView" destination="mGg-zg-Q5R" id="Eux-jw-WIE"/>
-                                            <outlet property="labPath" destination="dGn-LO-ocy" id="Wiq-Mf-FwH"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="YYq-ep-Liv"/>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="ifD-SX-fld"/>
-                                </connections>
-                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="JHC-qq-J6f" secondAttribute="trailing" id="3fm-Yg-uu9"/>
-                            <constraint firstItem="yAS-7M-wZi" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="55" id="6J5-ax-GEM"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bep-ZJ-jJJ" secondAttribute="leading" id="8En-HN-tUe"/>
                             <constraint firstAttribute="leading" secondItem="JHC-qq-J6f" secondAttribute="leading" id="91a-b6-g70"/>
-                            <constraint firstItem="yAS-7M-wZi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="MBZ-1k-bOP"/>
-                            <constraint firstItem="JHC-qq-J6f" firstAttribute="top" secondItem="yAS-7M-wZi" secondAttribute="bottom" constant="15" id="REb-y0-ttT"/>
-                            <constraint firstAttribute="trailing" secondItem="yAS-7M-wZi" secondAttribute="trailing" id="TvN-iU-Fhu"/>
+                            <constraint firstItem="JHC-qq-J6f" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="44" id="KfQ-7w-95T"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="JHC-qq-J6f" secondAttribute="bottom" id="WRN-jC-azr"/>
                             <constraint firstItem="EWo-Py-BzY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="eug-cq-bzb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EWo-Py-BzY" secondAttribute="trailing" constant="-16" id="hWj-wh-dMx"/>
@@ -155,7 +103,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="banner" destination="yAS-7M-wZi" id="tLh-BC-h1i"/>
                         <outlet property="cardCollection" destination="JHC-qq-J6f" id="mla-72-tGM"/>
                     </connections>
                 </viewController>
