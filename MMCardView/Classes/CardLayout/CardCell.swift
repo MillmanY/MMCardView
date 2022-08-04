@@ -11,10 +11,10 @@ import UIKit
 open class CardCell:UICollectionViewCell{
     var collectionV:UICollectionView!
     var reloadBlock:(()->Void)?
-    var customCardLayout:CardLayoutAttributes?
+    public var customCardLayout:CardLayoutAttributes?
     var originTouchY:CGFloat = 0.0
     var pangesture:UIPanGestureRecognizer?
-    func pan(rec:UIPanGestureRecognizer){
+    @objc func pan(rec:UIPanGestureRecognizer){  
         let point = rec.location(in: collectionV)
         let shiftY:CGFloat = (point.y - originTouchY  > 0) ? point.y - originTouchY : 0
         switch rec.state {
@@ -34,6 +34,18 @@ open class CardCell:UICollectionViewCell{
                 })
         }
     }
+    // Function is add for Adding Swipe Up gesture //Changes by Mansur
+//    @objc func swipedUp(){
+//
+//        let resetY = self.contentView.bounds.height * 1.2
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.transform = CGAffineTransform(translationX: 0, y: resetY)
+//        }, completion: { (finish) in
+//            if let reload = self.reloadBlock , true ,finish {
+//                reload()
+//            }
+//        })
+//    }
     
     open override func awakeFromNib() {
     
@@ -45,7 +57,12 @@ open class CardCell:UICollectionViewCell{
             self.addGestureRecognizer(pangesture!)
         }
         
-        self.setShadow(offset: CGSize(width: 0, height: -2), radius: 8, opacity: 0.5)
+//        //Changes by Mansur
+//        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(CardCell.swipedUp))
+//        swipeUp.direction = .up
+//        self.addGestureRecognizer(swipeUp)
+//
+//        self.setShadow(offset: CGSize(width: 0, height: -2), radius: 8, opacity: 0.5)
     }
 
     open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {

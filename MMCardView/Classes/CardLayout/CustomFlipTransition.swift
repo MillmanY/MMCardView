@@ -18,7 +18,7 @@ public class CustomFlipTransition: NSObject,UIViewControllerAnimatedTransitionin
     var cardView:UICollectionViewCell!
     var originalCardFrame = CGRect.zero
     lazy var blurView:UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.alpha = 0.0
         return blurEffectView

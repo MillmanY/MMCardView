@@ -15,10 +15,10 @@ public enum SequenceStyle:Int {
     case cover
 }
 
-class CardLayoutAttributes: UICollectionViewLayoutAttributes {
-    var isExpand = false
+public class CardLayoutAttributes: UICollectionViewLayoutAttributes {
+    public var isExpand = false
 
-    override func copy(with zone: NSZone? = nil) -> Any {
+    override public func copy(with zone: NSZone? = nil) -> Any {
         let attribute = super.copy(with: zone) as! CardLayoutAttributes
         attribute.isExpand = isExpand
         return attribute
@@ -70,7 +70,7 @@ public class CustomCardLayout: UICollectionViewLayout {
     
     public var titleHeight:CGFloat = 56 {
         didSet {
-            self.collectionView?.performBatchUpdates({ 
+            self.collectionView?.performBatchUpdates({
                 self.invalidateLayout()
             }, completion: nil)
         }
@@ -88,7 +88,8 @@ public class CustomCardLayout: UICollectionViewLayout {
     }
     
     lazy var cellSize:CGSize = {
-        let w = self.collectionView!.bounds.width
+        //Added by NetWeb for fixes of frame issue
+        let w = UIScreen.main.bounds.width//self.collectionView!.bounds.width
         let h = self.collectionView!.bounds.height * BottomPercent
         let size = CGSize.init(width: w, height: h)
         return size
@@ -107,7 +108,8 @@ public class CustomCardLayout: UICollectionViewLayout {
     }
     
      func updateCellSize() {
-        self.cellSize.width  = self.collectionView!.frame.width
+        //Added by NetWeb for fixes of frame issue
+        self.cellSize.width  = UIScreen.main.bounds.width//self.collectionView!.frame.width
         self.cellSize.height = cardHeight * BottomPercent
     }
     
@@ -282,8 +284,8 @@ public class CustomCardLayout: UICollectionViewLayout {
         if deletePath.count > 0 || insertPath.count > 0 {
             deletePath.removeAll()
             insertPath.removeAll()
-            let vi = self.collectionView!.subviews.sorted {
-                return $0.0.layer.zPosition < $0.1.layer.zPosition
+            let vi = self.collectionView!.subviews.sorted { (view1, view2) -> Bool in
+                return view1.layer.zPosition < view2.layer.zPosition
             }
             vi.forEach({ (vi) in
                 collectionView?.addSubview(vi)
